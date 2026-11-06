@@ -14,3 +14,10 @@ export const WAVE_LAYERS = [
 ] as const
 
 export const WAVE_LOADER_BARS = 5
+
+/** The logo's sea, back to front: each layer rolls faster, sits lower, and swells a beat later. */
+export const WAVE_MARK_LAYERS = [
+  { opacity: 0.35, height: '78%', drift: '6s', swell: '4s', delay: '0s', isReversed: true },
+  { opacity: 0.6, height: '62%', drift: '4s', swell: '4s', delay: '-1s', isReversed: false },
+  { opacity: 0.95, height: '46%', drift: '2.6s', swell: '4s', delay: '-2s', isReversed: false }
+] as const
