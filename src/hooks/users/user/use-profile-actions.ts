@@ -15,16 +15,16 @@ export const useProfileActions = (onDone: () => void) => {
   const { signIn, signOut } = useAuth()
 
   const updateProfile = useMutation({
-    mutationFn: (values: ProfileFormValues) => userService.updateMe({ ...values, image: values.image || null }),
+    mutationFn: (values: ProfileFormValues) => userService.updateMe(values),
     onSuccess: (user) => {
       queryClient.setQueryData(QUERY_KEYS.me, user)
+      void queryClient.invalidateQueries({ queryKey: QUERY_KEYS.people })
       notifySuccess(MESSAGES.PROFILE.PROFILE_UPDATED)
       onDone()
     },
     onError: notifyError
   })
-
-  // The server revokes older sessions and returns a fresh one for this device.
+  // The server signs every device out and returns a fresh session for this one.
   const changePassword = useMutation({
     mutationFn: (values: ChangePasswordFormValues) => userService.changePassword(values),
     onSuccess: (session) => {
@@ -34,7 +34,6 @@ export const useProfileActions = (onDone: () => void) => {
     },
     onError: notifyError
   })
-
   const deactivate = useMutation({
     mutationFn: userService.deactivate,
     onSuccess: async () => {
@@ -43,6 +42,5 @@ export const useProfileActions = (onDone: () => void) => {
     },
     onError: notifyError
   })
-
   return { updateProfile, changePassword, deactivate }
 }

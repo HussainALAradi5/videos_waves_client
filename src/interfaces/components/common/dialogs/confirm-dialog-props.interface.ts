@@ -1,11 +1,12 @@
-export interface ConfirmDialogProps {
+import type { PropsWithChildren } from 'react'
+
+export interface ConfirmDialogProps extends PropsWithChildren {
   isOpen: boolean
   title: string
   description: string
   confirmLabel: string
-  onConfirm: () => void
+  /** May return a promise; the button stays busy until it settles. */
+  onConfirm: () => unknown
   onClose: () => void
   isLoading?: boolean
-  /** Destructive actions default to the danger palette. */
-  colorPalette?: string
 }

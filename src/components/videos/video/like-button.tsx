@@ -1,28 +1,21 @@
 'use client'
 
-import { Button } from '@chakra-ui/react'
-import { LuHeart } from 'react-icons/lu'
+import { Button, Icon } from '@chakra-ui/react'
+import { FaHeart, FaRegHeart } from 'react-icons/fa6'
 import { MESSAGES } from '@/constants/common/messages.constants'
-import { PALETTES } from '@/constants/common/theme.constants'
-import { useVideoLike } from '@/hooks/videos/video/use-video-like'
+import { TRANSITIONS } from '@/constants/common/motion.constants'
 import type { LikeButtonProps } from '@/interfaces/components/videos/video/like-button-props.interface'
-import { formatCount } from '@/utilities/format/count-format.utility'
+import { AnimatedCount } from '@/components/common/counters/animated-count'
+import { MotionBox } from '@/components/common/motion/motion-box'
 
-export function LikeButton({ video, returnTo }: LikeButtonProps) {
-  const { toggleLike, isPending } = useVideoLike(video, returnTo)
-
+/** Heart that springs when liked, with a rolling count. Optimistic, so it never waits for the server. */
+export function LikeButton({ isLiked, likesCount, onToggle }: LikeButtonProps) {
   return (
-    <Button
-      size="sm"
-      variant={video.isLiked ? 'solid' : 'outline'}
-      colorPalette={video.isLiked ? PALETTES.DANGER : PALETTES.NEUTRAL}
-      onClick={toggleLike}
-      disabled={isPending}
-      aria-pressed={video.isLiked}
-      aria-label={video.isLiked ? MESSAGES.VIDEOS.UNLIKE : MESSAGES.VIDEOS.LIKE}
-    >
-      <LuHeart fill={video.isLiked ? 'currentColor' : 'none'} />
-      {formatCount(video.likesCount)}
+    <Button variant="subtle" rounded="full" onClick={onToggle} aria-pressed={isLiked} aria-label={isLiked ? MESSAGES.VIDEOS.UNLIKE : MESSAGES.VIDEOS.LIKE}>
+      <MotionBox key={String(isLiked)} initial={{ scale: 0.6 }} animate={{ scale: 1 }} transition={TRANSITIONS.spring} display="inline-flex">
+        <Icon color={isLiked ? 'coral.500' : undefined}>{isLiked ? <FaHeart /> : <FaRegHeart />}</Icon>
+      </MotionBox>
+      <AnimatedCount value={likesCount} />
     </Button>
   )
 }

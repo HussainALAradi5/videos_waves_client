@@ -1,30 +1,22 @@
 'use client'
 
-import { useInfiniteQuery } from '@tanstack/react-query'
 import { PAGE_SIZES } from '@/constants/common/limits.constants'
 import { QUERY_KEYS } from '@/constants/common/query-keys.constants'
+import type { Comment } from '@/interfaces/videos/comment/comment.interface'
 import { commentService } from '@/services/videos/comment/comment.service'
-import { flattenPages, getNextPageParam } from '@/utilities/pagination/next-page.utility'
+import { usePagedList } from '@/hooks/common/use-paged-list'
 
-const FIRST_PAGE = 1
-
-export const useComments = (videoId: string) => {
-  const query = useInfiniteQuery({
+export const useComments = (videoId: string) =>
+  usePagedList<Comment>({
     queryKey: QUERY_KEYS.comments(videoId),
-    queryFn: ({ pageParam, signal }) =>
-      commentService.list(videoId, { page: pageParam, pageSize: PAGE_SIZES.COMMENTS }, signal),
-    initialPageParam: FIRST_PAGE,
-    getNextPageParam
+    fetchPage: (page, signal) => commentService.list(videoId, { page, pageSize: PAGE_SIZES.COMMENTS }, signal)
   })
 
-  return {
-    comments: flattenPages(query.data?.pages),
-    totalItems: query.data?.pages[0]?.meta.totalItems ?? 0,
-    isLoading: query.isPending,
-    error: query.error,
-    refetch: query.refetch,
-    hasNextPage: query.hasNextPage,
-    isFetchingNextPage: query.isFetchingNextPage,
-    fetchNextPage: () => void query.fetchNextPage()
-  }
-}
+/** Oldest first, so a thread reads top to bottom; loaded only when opened. */
+export const useReplies = (videoId: string, commentId: string, isOpen: boolean) =>
+  usePagedList<Comment>({
+    queryKey: QUERY_KEYS.replies(videoId, commentId),
+    fetchPage: (page, signal) =>
+      commentService.listReplies(videoId, commentId, { page, pageSize: PAGE_SIZES.COMMENTS, sortDirection: 'asc' as never }, signal),
+    isEnabled: isOpen
+  })

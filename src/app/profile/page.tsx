@@ -1,8 +1,7 @@
-import type { Metadata } from 'next'
-import { ProfileView } from '@/views/users/profile-view'
+import { redirect } from 'next/navigation'
+import { PAGE_ROUTES } from '@/constants/common/routes.constants'
 
-export const metadata: Metadata = { title: 'Profile' }
-
-export default function ProfilePage() {
-  return <ProfileView />
+/** The old /profile address: account management now lives in Settings, profiles under /u/<name>. */
+export default function LegacyProfilePage() {
+  redirect(PAGE_ROUTES.SETTINGS)
 }

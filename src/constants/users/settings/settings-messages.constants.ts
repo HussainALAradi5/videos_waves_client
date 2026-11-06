@@ -1,0 +1,23 @@
+export const SETTINGS_MESSAGES = {
+  TITLE: 'Settings',
+  DESCRIPTION: 'Your account, preferences, and privacy.',
+  TAB_ACCOUNT: 'Account',
+  TAB_PREFERENCES: 'Preferences',
+  TAB_SECURITY: 'Security',
+  PHOTO_TITLE: 'Profile photo',
+  PHOTO_DESCRIPTION: 'Without a photo, a standard avatar is shown.',
+  PHOTO_UPLOAD: 'Upload photo',
+  PHOTO_REMOVE: 'Remove photo',
+  PHOTO_UPDATED: 'Profile photo updated',
+  DEVICES_TITLE: 'Where you are signed in',
+  DEVICES_DESCRIPTION: 'Sign out of devices you do not recognise.',
+  THIS_DEVICE: 'This device',
+  SIGN_OUT_DEVICE: 'Sign out',
+  SIGN_OUT_EVERYWHERE: 'Sign out everywhere',
+  SIGNED_OUT_DEVICE: 'Device signed out',
+  LAST_ACTIVE: (when: string) => `Active ${when}`,
+  UNKNOWN_DEVICE: 'Unknown device',
+  BLOCKED_TITLE: 'Blocked accounts',
+  RESTRICTED_TITLE: 'Restricted accounts',
+  NONE: 'Nobody here.'
+} as const

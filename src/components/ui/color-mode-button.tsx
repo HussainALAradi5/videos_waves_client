@@ -10,8 +10,8 @@ export function ColorModeButton() {
 
   // The theme is only known in the browser, so render a placeholder on the server.
   return (
-    <ClientOnly fallback={<Skeleton boxSize="9" borderRadius="md" />}>
-      <IconButton aria-label={MESSAGES.NAV.TOGGLE_COLOR_MODE} variant="ghost" color="white" onClick={toggleColorMode}>
+    <ClientOnly fallback={<Skeleton boxSize="9" rounded="full" />}>
+      <IconButton aria-label={MESSAGES.NAV.TOGGLE_COLOR_MODE} variant="ghost" rounded="full" onClick={toggleColorMode}>
         {isDark ? <LuSun /> : <LuMoon />}
       </IconButton>
     </ClientOnly>
