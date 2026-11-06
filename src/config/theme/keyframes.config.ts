@@ -6,6 +6,11 @@ export const keyframes = defineKeyframes({
   waveBob: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(6px)' } },
   /** A gentle rise and fall, shared by the logo's wave layers. */
   waveSwell: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(9%)' } },
+  /** Background waves: rise, stretch a little, and settle, from the bottom edge. */
+  waveRoll: {
+    '0%, 100%': { transform: 'translateY(0) scaleY(1)' },
+    '50%': { transform: 'translateY(6%) scaleY(1.12)' }
+  },
   shimmer: { from: { backgroundPosition: '200% 0' }, to: { backgroundPosition: '-200% 0' } },
   typingDot: { '0%, 60%, 100%': { transform: 'translateY(0)', opacity: 0.4 }, '30%': { transform: 'translateY(-4px)', opacity: 1 } },
   /** The bar under a toast empties as its time runs out. */

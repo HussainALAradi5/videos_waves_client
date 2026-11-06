@@ -1,5 +1,5 @@
 export interface LoginRequestDto {
-  /** Username or email. */
+  /** Username, email, or mobile number (any common format). */
   identifier: string
   password: string
 }

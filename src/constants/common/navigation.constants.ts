@@ -30,6 +30,12 @@ export const NAV_ITEMS: NavItem[] = [
   { key: NAV_KEYS.SETTINGS, label: 'Settings', icon: LuSettings, href: () => PAGE_ROUTES.SETTINGS, requiresAuth: true, isPrimary: false }
 ]
 
+/** One shared-layout id per menu, so each menu's active pill animates on its own. */
+export const NAV_INDICATORS = {
+  SIDEBAR: 'sidebar-active-pill',
+  BOTTOM_BAR: 'bottom-bar-active-pill'
+} as const
+
 export const SHELL = {
   SIDEBAR_WIDTH: { md: '20', xl: '64' },
   BOTTOM_BAR_HEIGHT: '16',

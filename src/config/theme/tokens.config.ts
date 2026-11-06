@@ -1,6 +1,6 @@
 import { defineTokens } from '@chakra-ui/react'
 
-/** Steel-blue brand scale: calm, single-hue blues. Coral is only the like accent. */
+/** Steel-blue brand scale: calm, single-hue blues. Rose is its pink partner (female avatars and choices); coral is only the like accent. */
 export const tokens = defineTokens({
   colors: {
     brand: {
@@ -15,6 +15,19 @@ export const tokens = defineTokens({
       800: { value: '#1a3f61' },
       900: { value: '#16324c' },
       950: { value: '#0d1f30' }
+    },
+    rose: {
+      50: { value: '#fdf0f6' },
+      100: { value: '#fbdcea' },
+      200: { value: '#f7b9d4' },
+      300: { value: '#f28bb7' },
+      400: { value: '#ec5f9a' },
+      500: { value: '#db3f80' },
+      600: { value: '#bc2c68' },
+      700: { value: '#962354' },
+      800: { value: '#741d43' },
+      900: { value: '#561733' },
+      950: { value: '#33101f' }
     },
     coral: {
       400: { value: '#ff7a9c' },
@@ -36,7 +49,9 @@ export const tokens = defineTokens({
     bubble: { value: '1.25rem' }
   },
   durations: {
-    wave: { value: '14s' },
-    waveSlow: { value: '22s' }
+    waveFast: { value: '7s' },
+    wave: { value: '11s' },
+    waveSlow: { value: '16s' },
+    swell: { value: '6s' }
   }
 })

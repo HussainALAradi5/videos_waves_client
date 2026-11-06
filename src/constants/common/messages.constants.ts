@@ -28,7 +28,11 @@ export const MESSAGES = {
     SIGN_UP: 'Sign up',
     LOGOUT: 'Sign out',
     TOGGLE_COLOR_MODE: 'Toggle color mode',
-    OPEN_MENU: 'Open account menu'
+    OPEN_MENU: 'Open account menu',
+    MENU: 'Menu',
+    THEME: 'Theme',
+    JOIN_TITLE: 'Join the wave',
+    JOIN_DESCRIPTION: 'Sign in to like, comment, message, and share your own videos.'
   },
   AUTH: {
     ALREADY_SIGNED_IN: 'You are already signed in. Sign out first to use another account or create a new one.',
@@ -81,7 +85,8 @@ export const MESSAGES = {
     UPDATED: 'Comment updated',
     DELETED: 'Comment deleted',
     EMPTY: 'No comments yet. Start the conversation!',
-    SIGN_IN_TO_COMMENT: 'Sign in to join the conversation.',
+    LOCKED_TITLE: 'Comments are for members',
+    LOCKED_DESCRIPTION: 'Sign in to read the conversation, reply, and like videos.',
     DELETE_TITLE: 'Delete this comment?',
     DELETE_DESCRIPTION: 'This cannot be undone.'
   },

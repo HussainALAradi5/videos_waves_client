@@ -12,6 +12,15 @@ export const semanticTokens = defineSemanticTokens({
       emphasized: { value: { _light: '{colors.brand.200}', _dark: '{colors.brand.800}' } },
       focusRing: { value: '{colors.brand.400}' }
     },
+    rose: {
+      solid: { value: { _light: '{colors.rose.500}', _dark: '{colors.rose.400}' } },
+      contrast: { value: 'white' },
+      fg: { value: { _light: '{colors.rose.700}', _dark: '{colors.rose.300}' } },
+      muted: { value: { _light: '{colors.rose.100}', _dark: '{colors.rose.900}' } },
+      subtle: { value: { _light: '{colors.rose.50}', _dark: '{colors.rose.950}' } },
+      emphasized: { value: { _light: '{colors.rose.200}', _dark: '{colors.rose.800}' } },
+      focusRing: { value: '{colors.rose.400}' }
+    },
     app: {
       // Dark: layered blue-black surfaces (not flat black), each step a little lighter, with hairline borders.
       canvas: { value: { _light: '#f6f8fb', _dark: '#080c14' } },
@@ -28,6 +37,8 @@ export const semanticTokens = defineSemanticTokens({
   gradients: {
     // Dark enough at every stop for white text on gradient buttons.
     brand: { value: 'linear-gradient(135deg, #3a7bb5 0%, #2c6496 50%, #1f4e79 100%)' },
+    // Blue into pink: the two avatar colours, used for small accents (active nav edge, wave crest).
+    accent: { value: 'linear-gradient(180deg, #5b8fc4 0%, #ec4f8f 100%)' },
     brandSoft: { value: 'linear-gradient(135deg, rgba(58,123,181,.16) 0%, rgba(31,78,121,.16) 100%)' }
   },
   shadows: {

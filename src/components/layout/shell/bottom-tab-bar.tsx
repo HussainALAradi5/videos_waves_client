@@ -1,7 +1,7 @@
 'use client'
 
 import { HStack } from '@chakra-ui/react'
-import { SHELL } from '@/constants/common/navigation.constants'
+import { NAV_INDICATORS, SHELL } from '@/constants/common/navigation.constants'
 import { useNavigation } from '@/hooks/common/use-navigation'
 import { NavLink } from './nav-link'
 
@@ -27,7 +27,7 @@ export function BottomTabBar() {
       {items
         .filter((item) => item.isPrimary)
         .map((item) => (
-          <NavLink key={item.key} href={item.resolvedHref} label={item.label} icon={item.icon} isActive={item.isActive} badge={item.badge} isCompact />
+          <NavLink key={item.key} href={item.resolvedHref} label={item.label} icon={item.icon} isActive={item.isActive} badge={item.badge} indicatorId={NAV_INDICATORS.BOTTOM_BAR} isCompact />
         ))}
     </HStack>
   )

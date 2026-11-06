@@ -5,7 +5,7 @@ import type { RegisterFormValues } from '@/validations/users/auth/register-form.
 import { GENDER_OPTIONS } from '../user/gender-options.constants'
 
 export const LOGIN_FIELDS: FormFieldConfig<keyof LoginFormValues>[] = [
-  { name: 'identifier', label: 'Username or email', type: FormFieldType.TEXT, autoComplete: 'username', isRequired: true },
+  { name: 'identifier', label: 'Username, email, or mobile number', type: FormFieldType.TEXT, autoComplete: 'username', isRequired: true },
   { name: 'password', label: 'Password', type: FormFieldType.PASSWORD, autoComplete: 'current-password', isRequired: true }
 ]
 

@@ -13,7 +13,7 @@ import { VideoOwnerFollow } from './video-owner-follow'
 import { LikeButton } from './like-button'
 import { VideoActions } from './video-actions'
 
-/** Title, owner with Follow, like, menu, views, and description under the player. */
+/** Title, owner with Follow, like (members only), menu, views, and description under the player. */
 export function VideoSummary({ video, canManage, onToggleLike }: VideoSummaryProps) {
   const { user } = useAuth()
   const isMine = user?.id === video.owner.id
@@ -31,7 +31,7 @@ export function VideoSummary({ video, canManage, onToggleLike }: VideoSummaryPro
           {!isMine && user && <VideoOwnerFollow userName={video.owner.userName} />}
         </HStack>
         <HStack gap="2">
-          <LikeButton isLiked={video.isLiked} likesCount={video.likesCount} onToggle={onToggleLike} />
+          {user && <LikeButton isLiked={video.isLiked} likesCount={video.likesCount} onToggle={onToggleLike} />}
           <VideoActions video={video} canManage={canManage} />
         </HStack>
       </Flex>

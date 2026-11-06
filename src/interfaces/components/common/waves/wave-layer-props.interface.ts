@@ -5,4 +5,8 @@ export interface WaveLayerProps {
   duration: string
   height: string
   isReversed: boolean
+  /** Offsets this layer's rise and fall so the layers never move in lockstep. */
+  rollDelay?: string
+  /** Fills the wave with the blue-to-pink brand gradient instead of `color`. */
+  hasGradient?: boolean
 }

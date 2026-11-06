@@ -6,10 +6,12 @@ import type { Comment } from '@/interfaces/videos/comment/comment.interface'
 import { commentService } from '@/services/videos/comment/comment.service'
 import { usePagedList } from '@/hooks/common/use-paged-list'
 
-export const useComments = (videoId: string) =>
+/** Members only: guests see the locked card, so nothing is fetched for them. */
+export const useComments = (videoId: string, isEnabled = true) =>
   usePagedList<Comment>({
     queryKey: QUERY_KEYS.comments(videoId),
-    fetchPage: (page, signal) => commentService.list(videoId, { page, pageSize: PAGE_SIZES.COMMENTS }, signal)
+    fetchPage: (page, signal) => commentService.list(videoId, { page, pageSize: PAGE_SIZES.COMMENTS }, signal),
+    isEnabled
   })
 
 /** Oldest first, so a thread reads top to bottom; loaded only when opened. */

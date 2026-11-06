@@ -12,15 +12,18 @@ import { GenericIconButton } from '@/components/common/buttons/generic-icon-butt
 import { ColorModeButton } from '@/components/ui/color-mode-button'
 import type { ShellAccountProps } from '@/interfaces/components/layout/shell/shell-account-props.interface'
 
-/** Theme toggle plus Sign in and Sign up for guests, or admin and sign out for members. */
-export function ShellAccount({ isInline = false }: ShellAccountProps) {
+/**
+ * Theme toggle plus Sign in and Sign up for guests, or admin and sign out for members.
+ * Icons only (the sidebar, which draws its own theme toggle and join card): just the member actions.
+ */
+export function ShellAccount({ isInline = false, isIconsOnly = false }: ShellAccountProps) {
   const { isAuthenticated, isAdmin } = useAuth()
   const logout = useLogout()
   const Container = isInline ? HStack : Stack
 
   return (
-    <Container gap="2" align={isInline ? 'center' : { base: 'center', xl: 'stretch' }}>
-      <ColorModeButton />
+    <Container gap={isIconsOnly ? '1' : '2'} align="center">
+      {!isIconsOnly && <ColorModeButton />}
       {isAdmin && (
         <>
           <GenericIconButton label={MESSAGES.NAV.ADMIN_USERS} asChild>
@@ -40,6 +43,7 @@ export function ShellAccount({ isInline = false }: ShellAccountProps) {
           <LuLogOut />
         </GenericIconButton>
       ) : (
+        !isIconsOnly && (
         <>
           <GenericButton asChild tone="gradient" size="sm">
             <NextLink href={PAGE_ROUTES.LOGIN}>{MESSAGES.NAV.LOGIN}</NextLink>
@@ -48,6 +52,7 @@ export function ShellAccount({ isInline = false }: ShellAccountProps) {
             <NextLink href={PAGE_ROUTES.REGISTER}>{MESSAGES.NAV.SIGN_UP}</NextLink>
           </GenericButton>
         </>
+        )
       )}
     </Container>
   )
