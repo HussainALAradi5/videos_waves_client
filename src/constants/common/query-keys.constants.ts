@@ -1,9 +1,12 @@
 import type { VideoQueryDto } from '@/dtos/videos/video/video-query.dto'
 import type { AdminRequestQueryDto } from '@/dtos/users/admin-request/admin-request-query.dto'
+import type { AdminUsersQueryDto } from '@/dtos/users/admin-users/admin-users-query.dto'
 import type { InboxFolder } from '@/enums/chat/conversation/inbox-folder.enum'
 
 export const QUERY_KEYS = {
   me: ['users', 'me'] as const,
+  adminUsersAll: ['admin', 'users'] as const,
+  adminUsers: (query: AdminUsersQueryDto) => ['admin', 'users', query] as const,
   settings: ['users', 'me', 'settings'] as const,
   sessions: ['users', 'me', 'sessions'] as const,
   videos: ['videos'] as const,

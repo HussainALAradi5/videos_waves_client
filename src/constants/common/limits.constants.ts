@@ -2,6 +2,7 @@ export const PAGE_SIZES = {
   FEED: 12,
   COMMENTS: 10,
   ADMIN_REQUESTS: 10,
+  ADMIN_USERS: 20,
   MY_VIDEOS: 9,
   PEOPLE: 20
 } as const

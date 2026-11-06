@@ -10,10 +10,13 @@ export const USER_ENDPOINTS = {
   ME_BLOCKED: '/users/me/blocked',
   ME_RESTRICTED: '/users/me/restricted',
   SEARCH: '/users/search',
+  EXPORT: '/users/export',
+  IMPORT: '/users/import',
   profile: (userName: string) => `/users/${segment(userName)}`,
   follow: (userName: string) => `/users/${segment(userName)}/follow`,
   followers: (userName: string) => `/users/${segment(userName)}/followers`,
   following: (userName: string) => `/users/${segment(userName)}/following`,
   block: (userName: string) => `/users/${segment(userName)}/block`,
-  restrict: (userName: string) => `/users/${segment(userName)}/restrict`
+  restrict: (userName: string) => `/users/${segment(userName)}/restrict`,
+  status: (userName: string) => `/users/${segment(userName)}/status`
 } as const

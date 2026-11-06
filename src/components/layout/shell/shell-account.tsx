@@ -2,7 +2,7 @@
 
 import NextLink from 'next/link'
 import { HStack, Stack } from '@chakra-ui/react'
-import { LuLogOut, LuShieldCheck } from 'react-icons/lu'
+import { LuLogOut, LuShieldCheck, LuUsers } from 'react-icons/lu'
 import { MESSAGES } from '@/constants/common/messages.constants'
 import { PAGE_ROUTES } from '@/constants/common/routes.constants'
 import { useAuth } from '@/hooks/users/auth/use-auth'
@@ -22,11 +22,18 @@ export function ShellAccount({ isInline = false }: ShellAccountProps) {
     <Container gap="2" align={isInline ? 'center' : { base: 'center', xl: 'stretch' }}>
       <ColorModeButton />
       {isAdmin && (
-        <GenericIconButton label={MESSAGES.NAV.ADMIN} asChild>
-          <NextLink href={PAGE_ROUTES.ADMIN_REQUESTS}>
-            <LuShieldCheck />
-          </NextLink>
-        </GenericIconButton>
+        <>
+          <GenericIconButton label={MESSAGES.NAV.ADMIN_USERS} asChild>
+            <NextLink href={PAGE_ROUTES.ADMIN_USERS}>
+              <LuUsers />
+            </NextLink>
+          </GenericIconButton>
+          <GenericIconButton label={MESSAGES.NAV.ADMIN} asChild>
+            <NextLink href={PAGE_ROUTES.ADMIN_REQUESTS}>
+              <LuShieldCheck />
+            </NextLink>
+          </GenericIconButton>
+        </>
       )}
       {isAuthenticated ? (
         <GenericIconButton label={MESSAGES.NAV.LOGOUT} onClick={logout}>

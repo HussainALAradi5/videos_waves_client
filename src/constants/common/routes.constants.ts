@@ -9,6 +9,7 @@ export const PAGE_ROUTES = {
   MESSAGES: '/messages',
   SETTINGS: '/settings',
   ADMIN_REQUESTS: '/admin/requests',
+  ADMIN_USERS: '/admin/users',
   video: (videoId: string) => `/videos/${segment(videoId)}`,
   profile: (userName: string) => `/u/${segment(userName)}`,
   conversation: (conversationId: string) => `/messages/${segment(conversationId)}`
