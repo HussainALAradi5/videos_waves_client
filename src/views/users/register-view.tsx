@@ -8,7 +8,7 @@ import { useRegister } from '@/hooks/users/auth/use-register'
 import { GenericForm } from '@/components/common/forms/generic-form'
 import { AuthCard } from '@/components/users/auth/auth-card'
 
-const EMPTY_REGISTRATION = { userName: '', email: '', password: '' } as Partial<RegisterFormValues>
+const EMPTY_REGISTRATION = { userName: '', email: '', phone: '', password: '' } as Partial<RegisterFormValues>
 
 export function RegisterView() {
   const { register, isPending } = useRegister()

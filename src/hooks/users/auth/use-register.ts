@@ -15,7 +15,7 @@ export const useRegister = () => {
   const { signIn } = useAuth()
 
   const mutation = useMutation({
-    mutationFn: (values: RegisterFormValues) => authService.register(values),
+    mutationFn: (values: RegisterFormValues) => authService.register({ ...values, phone: values.phone || undefined }),
     onSuccess: (session) => {
       signIn(session)
       notifySuccess(MESSAGES.AUTH.REGISTER_SUCCESS)

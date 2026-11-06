@@ -13,12 +13,16 @@ const ALL = ''
 
 export const ROLE_FILTER_OPTIONS: DropdownOption[] = [
   { value: ALL, label: 'All roles' },
-  ...Object.values(Role).map((role) => ({ value: role, label: ROLE_OPTIONS[role].label }))
+  ...Object.values(Role).map((role) => ({ value: role, label: ROLE_OPTIONS[role].label, colorPalette: ROLE_OPTIONS[role].colorPalette }))
 ]
 
 export const STATUS_FILTER_OPTIONS: DropdownOption[] = [
   { value: ALL, label: 'All statuses' },
-  ...Object.values(AccountStatus).map((status) => ({ value: status, label: ACCOUNT_STATUS_OPTIONS[status].label }))
+  ...Object.values(AccountStatus).map((status) => ({
+    value: status,
+    label: ACCOUNT_STATUS_OPTIONS[status].label,
+    colorPalette: ACCOUNT_STATUS_OPTIONS[status].colorPalette
+  }))
 ]
 
 export const IMPORT_TEMPLATE = 'userName,email,gender,role\r\nnew_member,new.member@example.com,female,user\r\n'

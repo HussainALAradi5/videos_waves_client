@@ -15,7 +15,7 @@ export const useProfileActions = (onDone: () => void) => {
   const { signIn, signOut } = useAuth()
 
   const updateProfile = useMutation({
-    mutationFn: (values: ProfileFormValues) => userService.updateMe(values),
+    mutationFn: (values: ProfileFormValues) => userService.updateMe({ ...values, phone: values.phone || null }),
     onSuccess: (user) => {
       queryClient.setQueryData(QUERY_KEYS.me, user)
       void queryClient.invalidateQueries({ queryKey: QUERY_KEYS.people })
