@@ -2,10 +2,11 @@
 
 import NextLink from 'next/link'
 import { HStack } from '@chakra-ui/react'
-import { LuBan, LuEyeOff, LuMessageCircle, LuUserCheck, LuUserX } from 'react-icons/lu'
+import { LuBan, LuEyeOff, LuMessageCircle, LuShield, LuShieldOff, LuUserCheck, LuUserX } from 'react-icons/lu'
 import { ADMIN_USERS_MESSAGES } from '@/constants/users/admin-users/admin-users.constants'
 import { Role } from '@/enums/users/roles/role.enum'
 import { useAccountStatus } from '@/hooks/users/admin-users/use-account-status'
+import { useUserRole } from '@/hooks/users/admin-users/use-user-role'
 import { PAGE_ROUTES } from '@/constants/common/routes.constants'
 import { SOCIAL_MESSAGES } from '@/constants/users/social/social-messages.constants'
 import type { ProfileActionsProps } from '@/interfaces/components/users/profile/profile-actions-props.interface'
@@ -17,11 +18,12 @@ import { ActionMenu } from '@/components/common/dropdown/action-menu'
 import { ConfirmDialog } from '@/components/common/dialogs/confirm-dialog'
 import { FollowButton } from '../social/follow-button'
 
-/** Your own profile: Edit profile. Someone else: Follow, Message, and Block or Restrict in the menu. */
+/** Your own profile: Edit profile. Someone else: Follow, Message, and Block or Restrict in the menu (admins also change their role and status). */
 export function ProfileActions({ profile }: ProfileActionsProps) {
   const { isAuthenticated, isAdmin } = useAuth()
   const relation = useRelationActions(profile)
   const accountStatus = useAccountStatus()
+  const userRole = useUserRole()
   const canManageAccount = isAdmin && profile.role !== Role.ADMIN
   const startChat = useStartChat()
 
@@ -54,6 +56,13 @@ export function ProfileActions({ profile }: ProfileActionsProps) {
           items={[
             { key: 'restrict', label: profile.isRestricted ? SOCIAL_MESSAGES.UNRESTRICT : SOCIAL_MESSAGES.RESTRICT, icon: <LuEyeOff />, onSelect: () => void relation.toggleRestrict(), isHidden: profile.isBlocked },
             { key: 'block', label: profile.isBlocked ? SOCIAL_MESSAGES.UNBLOCK : SOCIAL_MESSAGES.BLOCK, icon: <LuBan />, onSelect: () => void relation.requestBlock(), isDanger: true },
+            {
+              key: 'role',
+              label: profile.role === Role.ADMIN ? ADMIN_USERS_MESSAGES.REMOVE_ADMIN : ADMIN_USERS_MESSAGES.MAKE_ADMIN,
+              icon: profile.role === Role.ADMIN ? <LuShieldOff /> : <LuShield />,
+              onSelect: () => void userRole.setRole(profile.userName, profile.role === Role.ADMIN ? Role.USER : Role.ADMIN),
+              isHidden: !isAdmin
+            },
             {
               key: 'account',
               label: profile.isActive ? ADMIN_USERS_MESSAGES.DEACTIVATE : ADMIN_USERS_MESSAGES.ACTIVATE,

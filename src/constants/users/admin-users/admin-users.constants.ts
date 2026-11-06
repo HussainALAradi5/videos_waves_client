@@ -40,6 +40,10 @@ export const ADMIN_USERS_MESSAGES = {
   IMPORT: 'Import CSV',
   DEACTIVATE: 'Deactivate',
   ACTIVATE: 'Activate',
+  MAKE_ADMIN: 'Make admin',
+  REMOVE_ADMIN: 'Remove admin',
+  ROLE_CHANGED: (userName: string, isAdmin: boolean) =>
+    `${userName} is now ${isAdmin ? 'an admin' : 'a regular user'}. They were signed out to apply it.`,
   DEACTIVATED: (userName: string) => `${userName} was deactivated. Their videos and comments are hidden.`,
   ACTIVATED: (userName: string) => `${userName} is active again.`,
   CONFIRM_TITLE: (userName: string) => `Deactivate ${userName}?`,

@@ -17,6 +17,15 @@ export const PRESENCE_OPTIONS: DropdownOption[] = [
   { value: PresenceMode.INVISIBLE, label: 'Appear offline', colorPalette: 'gray' }
 ]
 
+/** Dot colour of each status you can pick (appear offline is a hollow grey dot). */
+export const PRESENCE_MODE_COLORS: Record<PresenceMode, string> = {
+  [PresenceMode.ONLINE]: 'green.500',
+  [PresenceMode.AWAY]: 'orange.400',
+  [PresenceMode.BUSY]: 'red.500',
+  [PresenceMode.INVISIBLE]: 'gray.400'
+}
+
 export const PRESENCE_MESSAGES = {
-  PICKER: 'Your status'
+  PICKER: 'Your status',
+  CHANGE_HINT: (label: string) => `${label}: click to change your status`
 } as const

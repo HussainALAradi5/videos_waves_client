@@ -20,5 +20,6 @@ export const USER_ENDPOINTS = {
   block: (userName: string) => `/users/${segment(userName)}/block`,
   restrict: (userName: string) => `/users/${segment(userName)}/restrict`,
   status: (userName: string) => `/users/${segment(userName)}/status`,
+  role: (userName: string) => `/users/${segment(userName)}/role`,
   followRequest: (userName: string) => `/users/me/follow-requests/${segment(userName)}`
 } as const

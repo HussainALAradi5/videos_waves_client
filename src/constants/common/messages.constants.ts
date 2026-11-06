@@ -25,11 +25,13 @@ export const MESSAGES = {
     ADMIN_USERS: 'Users',
     LOGIN: 'Sign in',
     REGISTER: 'Create account',
+    SIGN_UP: 'Sign up',
     LOGOUT: 'Sign out',
     TOGGLE_COLOR_MODE: 'Toggle color mode',
     OPEN_MENU: 'Open account menu'
   },
   AUTH: {
+    ALREADY_SIGNED_IN: 'You are already signed in. Sign out first to use another account or create a new one.',
     LOGIN_TITLE: 'Welcome back',
     LOGIN_DESCRIPTION: 'Sign in with your username or email.',
     REGISTER_TITLE: 'Join Videos Waves',

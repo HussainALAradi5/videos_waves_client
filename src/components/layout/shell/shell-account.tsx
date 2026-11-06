@@ -12,7 +12,7 @@ import { GenericIconButton } from '@/components/common/buttons/generic-icon-butt
 import { ColorModeButton } from '@/components/ui/color-mode-button'
 import type { ShellAccountProps } from '@/interfaces/components/layout/shell/shell-account-props.interface'
 
-/** Theme toggle plus sign in / sign up for guests, or admin and sign out for members. */
+/** Theme toggle plus Sign in and Sign up for guests, or admin and sign out for members. */
 export function ShellAccount({ isInline = false }: ShellAccountProps) {
   const { isAuthenticated, isAdmin } = useAuth()
   const logout = useLogout()
@@ -40,9 +40,14 @@ export function ShellAccount({ isInline = false }: ShellAccountProps) {
           <LuLogOut />
         </GenericIconButton>
       ) : (
-        <GenericButton asChild tone="gradient" size="sm">
-          <NextLink href={PAGE_ROUTES.LOGIN}>{MESSAGES.NAV.LOGIN}</NextLink>
-        </GenericButton>
+        <>
+          <GenericButton asChild tone="gradient" size="sm">
+            <NextLink href={PAGE_ROUTES.LOGIN}>{MESSAGES.NAV.LOGIN}</NextLink>
+          </GenericButton>
+          <GenericButton asChild tone="secondary" size="sm">
+            <NextLink href={PAGE_ROUTES.REGISTER}>{MESSAGES.NAV.SIGN_UP}</NextLink>
+          </GenericButton>
+        </>
       )}
     </Container>
   )
