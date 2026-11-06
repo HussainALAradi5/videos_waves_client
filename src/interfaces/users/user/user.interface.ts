@@ -12,4 +12,6 @@ export interface User extends BaseEntity {
   followersCount: number
   followingCount: number
   videosCount: number
+  /** False when an admin deactivated the account. */
+  isActive: boolean
 }

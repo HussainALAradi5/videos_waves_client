@@ -2,7 +2,10 @@
 
 import NextLink from 'next/link'
 import { HStack } from '@chakra-ui/react'
-import { LuBan, LuEyeOff, LuMessageCircle } from 'react-icons/lu'
+import { LuBan, LuEyeOff, LuMessageCircle, LuUserCheck, LuUserX } from 'react-icons/lu'
+import { ADMIN_USERS_MESSAGES } from '@/constants/users/admin-users/admin-users.constants'
+import { Role } from '@/enums/users/roles/role.enum'
+import { useAccountStatus } from '@/hooks/users/admin-users/use-account-status'
 import { PAGE_ROUTES } from '@/constants/common/routes.constants'
 import { SOCIAL_MESSAGES } from '@/constants/users/social/social-messages.constants'
 import type { ProfileActionsProps } from '@/interfaces/components/users/profile/profile-actions-props.interface'
@@ -16,8 +19,10 @@ import { FollowButton } from '../social/follow-button'
 
 /** Your own profile: Edit profile. Someone else: Follow, Message, and Block or Restrict in the menu. */
 export function ProfileActions({ profile }: ProfileActionsProps) {
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated, isAdmin } = useAuth()
   const relation = useRelationActions(profile)
+  const accountStatus = useAccountStatus()
+  const canManageAccount = isAdmin && profile.role !== Role.ADMIN
   const startChat = useStartChat()
 
   if (profile.isMe) {
@@ -40,7 +45,15 @@ export function ProfileActions({ profile }: ProfileActionsProps) {
           label={SOCIAL_MESSAGES.PROFILE_OPTIONS}
           items={[
             { key: 'restrict', label: profile.isRestricted ? SOCIAL_MESSAGES.UNRESTRICT : SOCIAL_MESSAGES.RESTRICT, icon: <LuEyeOff />, onSelect: () => void relation.toggleRestrict(), isHidden: profile.isBlocked },
-            { key: 'block', label: profile.isBlocked ? SOCIAL_MESSAGES.UNBLOCK : SOCIAL_MESSAGES.BLOCK, icon: <LuBan />, onSelect: () => void relation.requestBlock(), isDanger: true }
+            { key: 'block', label: profile.isBlocked ? SOCIAL_MESSAGES.UNBLOCK : SOCIAL_MESSAGES.BLOCK, icon: <LuBan />, onSelect: () => void relation.requestBlock(), isDanger: true },
+            {
+              key: 'account',
+              label: profile.isActive ? ADMIN_USERS_MESSAGES.DEACTIVATE : ADMIN_USERS_MESSAGES.ACTIVATE,
+              icon: profile.isActive ? <LuUserX /> : <LuUserCheck />,
+              onSelect: () => void accountStatus.setActive(profile.userName, !profile.isActive),
+              isDanger: profile.isActive,
+              isHidden: !canManageAccount
+            }
           ]}
         />
       )}

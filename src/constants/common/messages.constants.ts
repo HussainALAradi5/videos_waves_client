@@ -21,6 +21,7 @@ export const MESSAGES = {
     UPLOAD: 'Upload',
     PROFILE: 'Profile',
     ADMIN: 'Admin requests',
+    ADMIN_USERS: 'Users',
     LOGIN: 'Sign in',
     REGISTER: 'Create account',
     LOGOUT: 'Sign out',
