@@ -2,7 +2,8 @@ export const PAGE_SIZES = {
   FEED: 12,
   COMMENTS: 10,
   ADMIN_REQUESTS: 10,
-  MY_VIDEOS: 6
+  MY_VIDEOS: 9,
+  PEOPLE: 20
 } as const
 
 export const SEARCH_DEBOUNCE_MS = 400
@@ -18,7 +19,8 @@ export const TEXT_LIMITS = {
   COMMENT_MAX: 1000,
   ADMIN_REASON_MIN: 10,
   ADMIN_REASON_MAX: 500,
-  ADMIN_NOTE_MAX: 500
+  ADMIN_NOTE_MAX: 500,
+  BIO_MAX: 150
 } as const
 
 export const TOAST_DURATION_MS = 3000

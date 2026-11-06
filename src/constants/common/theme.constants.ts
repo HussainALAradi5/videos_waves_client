@@ -1,5 +1,5 @@
 export const PALETTES = {
-  BRAND: 'cyan',
+  BRAND: 'brand',
   DANGER: 'red',
   SUCCESS: 'green',
   NEUTRAL: 'gray'

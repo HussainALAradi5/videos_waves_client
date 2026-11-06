@@ -1,33 +1,33 @@
 'use client'
 
-import { Heading, Stack } from '@chakra-ui/react'
-import { MESSAGES } from '@/constants/common/messages.constants'
+import { useState } from 'react'
 import { PAGE_SIZES } from '@/constants/common/limits.constants'
-import { useAuth } from '@/hooks/users/auth/use-auth'
-import { RequireAuth } from '@/middlewares/auth/require-auth'
-import { PageHeader } from '@/components/common/layout/page-header'
-import { ProfileSummary } from '@/components/users/user/profile-summary'
-import { AdminRequestPanel } from '@/components/users/admin-request/admin-request-panel'
-import { VideoInfiniteGrid } from '@/components/videos/video/video-infinite-grid'
+import { SOCIAL_MESSAGES } from '@/constants/users/social/social-messages.constants'
+import type { ProfileViewProps } from '@/interfaces/components/views/profile-view-props.interface'
+import type { PeopleList } from '@/hooks/users/social/use-people'
+import { useProfile } from '@/hooks/users/social/use-profile'
+import { EmptyState } from '@/components/common/feedback/empty-state'
+import { ErrorState } from '@/components/common/feedback/error-state'
+import { LoadingState } from '@/components/common/feedback/loading-state'
+import { ProfileHeader } from '@/components/users/profile/profile-header'
+import { PeopleDialog } from '@/components/users/social/people-dialog'
+import { VideoGrid } from '@/components/videos/video/video-grid'
 
-export function ProfileView() {
-  const { user } = useAuth()
+export function ProfileView({ userName }: ProfileViewProps) {
+  const { profile, isLoading, error, isMissing, refetch } = useProfile(userName)
+  const [people, setPeople] = useState<PeopleList | null>(null)
 
+  if (isLoading) return <LoadingState />
+  if (isMissing || !profile) return error && !isMissing ? <ErrorState error={error} onRetry={refetch} /> : <EmptyState title={SOCIAL_MESSAGES.NOT_FOUND} />
   return (
-    <RequireAuth>
-      {user && (
-        <Stack gap="8">
-          <PageHeader title={MESSAGES.PROFILE.TITLE} />
-          <ProfileSummary user={user} />
-          <AdminRequestPanel />
-          <Stack as="section" gap="5">
-            <Heading as="h2" size="lg">
-              {MESSAGES.VIDEOS.MY_VIDEOS}
-            </Heading>
-            <VideoInfiniteGrid query={{ ownerId: user.id, pageSize: PAGE_SIZES.MY_VIDEOS }} emptyTitle={MESSAGES.VIDEOS.MY_VIDEOS_EMPTY} />
-          </Stack>
-        </Stack>
+    <>
+      <ProfileHeader profile={profile} onOpenPeople={setPeople} />
+      {profile.isBlocked ? (
+        <EmptyState title={SOCIAL_MESSAGES.BLOCKED(profile.userName)} description={SOCIAL_MESSAGES.BLOCKED_HINT} />
+      ) : (
+        <VideoGrid query={{ ownerId: profile.id, pageSize: PAGE_SIZES.MY_VIDEOS }} emptyTitle={SOCIAL_MESSAGES.NO_VIDEOS} emptyDescription="" />
       )}
-    </RequireAuth>
+      <PeopleDialog userName={profile.userName} list={people} onClose={() => setPeople(null)} />
+    </>
   )
 }

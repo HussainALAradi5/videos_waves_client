@@ -25,5 +25,5 @@ export const useGenericForm = <TValues extends FieldValues>(
     }
   })
 
-  return { register: form.register, errors: form.formState.errors, submit }
+  return { control: form.control, errors: form.formState.errors, isSubmitting: form.formState.isSubmitting, submit }
 }

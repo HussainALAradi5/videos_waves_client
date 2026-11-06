@@ -1,29 +1,38 @@
 'use client'
 
-import { Button, HStack, Stack, Textarea } from '@chakra-ui/react'
+import { HStack, Stack, Text, Textarea } from '@chakra-ui/react'
+import { LuX } from 'react-icons/lu'
 import { MESSAGES } from '@/constants/common/messages.constants'
-import { PALETTES } from '@/constants/common/theme.constants'
 import { TEXT_LIMITS } from '@/constants/common/limits.constants'
-import { useCommentComposer } from '@/hooks/videos/comment/use-comment-composer'
-import type { CommentSectionProps } from '@/interfaces/components/videos/comment/comment-section-props.interface'
+import { COMMENT_MESSAGES } from '@/constants/videos/comment/comment-messages.constants'
+import type { CommentComposerProps } from '@/interfaces/components/videos/comment/comment-composer-props.interface'
+import { GenericButton } from '@/components/common/buttons/generic-button'
+import { GenericIconButton } from '@/components/common/buttons/generic-icon-button'
 
-export function CommentComposer({ videoId }: CommentSectionProps) {
-  const { content, setContent, submit, canSubmit, isPosting } = useCommentComposer(videoId)
-
+export function CommentComposer({ content, onChange, replyTo, onCancelReply, onSubmit, canSubmit }: CommentComposerProps) {
   return (
-    <Stack gap="2">
+    <Stack gap="2" p="3" rounded="2xl" bg="app.surface" borderWidth="1px" borderColor="app.border">
+      {replyTo && (
+        <HStack justify="space-between" fontSize="xs" color="fg.muted">
+          <Text>{COMMENT_MESSAGES.REPLYING_TO(replyTo.author.userName)}</Text>
+          <GenericIconButton label={MESSAGES.COMMON.CANCEL} size="2xs" onClick={onCancelReply}>
+            <LuX />
+          </GenericIconButton>
+        </HStack>
+      )}
       <Textarea
         value={content}
-        onChange={(event) => setContent(event.target.value)}
+        onChange={(event) => onChange(event.target.value)}
         placeholder={MESSAGES.COMMENTS.PLACEHOLDER}
         aria-label={MESSAGES.COMMENTS.PLACEHOLDER}
         maxLength={TEXT_LIMITS.COMMENT_MAX}
+        variant="flushed"
         autoresize
       />
       <HStack justify="flex-end">
-        <Button colorPalette={PALETTES.BRAND} onClick={submit} disabled={!canSubmit} loading={isPosting}>
+        <GenericButton tone="gradient" size="sm" onClick={onSubmit} disabled={!canSubmit}>
           {MESSAGES.COMMENTS.SUBMIT}
-        </Button>
+        </GenericButton>
       </HStack>
     </Stack>
   )

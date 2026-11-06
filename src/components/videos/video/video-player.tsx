@@ -1,27 +1,32 @@
-import { AspectRatio, Box, chakra } from '@chakra-ui/react'
+'use client'
+
+import { AspectRatio, Box } from '@chakra-ui/react'
 import { LAYOUT } from '@/constants/common/theme.constants'
 import type { VideoPlayerProps } from '@/interfaces/components/videos/video/video-player-props.interface'
+import { useDoubleTap } from '@/hooks/videos/video/use-double-tap'
+import { useSettings } from '@/hooks/users/settings/use-settings'
+import { HeartBurst } from './heart-burst'
 
-// Seeking slightly past zero makes browsers paint the first frame as a thumbnail.
-const PREVIEW_FRAGMENT = '#t=0.1'
+/** The video page player: double tap (or double click) to like, autoplay muted when the setting is on. */
+export function VideoPlayer({ video, onPlay, onDoubleTap }: VideoPlayerProps) {
+  const { autoplayVideos } = useSettings()
+  const { burstKey, onDoubleClick, onPointerUp } = useDoubleTap(onDoubleTap)
 
-export function VideoPlayer({ src, title, isPreview = false, onPlay }: VideoPlayerProps) {
   return (
-    <AspectRatio ratio={LAYOUT.VIDEO_ASPECT_RATIO} bg="black" borderRadius={isPreview ? undefined : 'xl'} overflow="hidden">
-      <Box>
-        <chakra.video
-          src={isPreview ? `${src}${PREVIEW_FRAGMENT}` : src}
-          title={title}
-          aria-label={title}
-          controls={!isPreview}
-          muted={isPreview}
+    <AspectRatio ratio={LAYOUT.VIDEO_ASPECT_RATIO}>
+      <Box rounded="3xl" overflow="hidden" bg="black" shadow="card" position="relative" onDoubleClick={onDoubleClick} onPointerUp={onPointerUp}>
+        <video
+          src={video.videoUrl}
+          poster={video.thumbnailUrl ?? undefined}
+          controls
           playsInline
-          preload="metadata"
+          autoPlay={autoplayVideos}
+          muted={autoplayVideos}
           onPlay={onPlay}
-          w="full"
-          h="full"
-          objectFit="contain"
+          aria-label={video.title}
+          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
         />
+        <HeartBurst burstKey={burstKey} />
       </Box>
     </AspectRatio>
   )

@@ -9,5 +9,8 @@ export const VIDEO_ENDPOINTS = {
 
 export const COMMENT_ENDPOINTS = {
   root: (videoId: string) => `/videos/${segment(videoId)}/comments`,
-  byId: (videoId: string, commentId: string) => `/videos/${segment(videoId)}/comments/${segment(commentId)}`
+  byId: (videoId: string, commentId: string) => `/videos/${segment(videoId)}/comments/${segment(commentId)}`,
+  replies: (videoId: string, commentId: string) => `/videos/${segment(videoId)}/comments/${segment(commentId)}/replies`,
+  restore: (videoId: string, commentId: string) => `/videos/${segment(videoId)}/comments/${segment(commentId)}/restore`,
+  approve: (videoId: string, commentId: string) => `/videos/${segment(videoId)}/comments/${segment(commentId)}/approve`
 } as const

@@ -1,5 +1,19 @@
+const segment = (value: string): string => encodeURIComponent(value)
+
+// Mirrors the server routes in constants/common/routes.constants.ts (server repository).
 export const USER_ENDPOINTS = {
   ROOT: '/users',
   ME: '/users/me',
-  ME_PASSWORD: '/users/me/password'
+  ME_PASSWORD: '/users/me/password',
+  ME_AVATAR: '/users/me/avatar',
+  ME_SETTINGS: '/users/me/settings',
+  ME_BLOCKED: '/users/me/blocked',
+  ME_RESTRICTED: '/users/me/restricted',
+  SEARCH: '/users/search',
+  profile: (userName: string) => `/users/${segment(userName)}`,
+  follow: (userName: string) => `/users/${segment(userName)}/follow`,
+  followers: (userName: string) => `/users/${segment(userName)}/followers`,
+  following: (userName: string) => `/users/${segment(userName)}/following`,
+  block: (userName: string) => `/users/${segment(userName)}/block`,
+  restrict: (userName: string) => `/users/${segment(userName)}/restrict`
 } as const

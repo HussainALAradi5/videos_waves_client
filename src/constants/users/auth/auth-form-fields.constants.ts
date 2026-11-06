@@ -2,6 +2,7 @@ import { FormFieldType } from '@/enums/common/form-field-type.enum'
 import type { FormFieldConfig } from '@/interfaces/common/forms/form-field-config.interface'
 import type { LoginFormValues } from '@/validations/users/auth/login-form.validation'
 import type { RegisterFormValues } from '@/validations/users/auth/register-form.validation'
+import { GENDER_OPTIONS } from '../user/gender-options.constants'
 
 export const LOGIN_FIELDS: FormFieldConfig<keyof LoginFormValues>[] = [
   { name: 'identifier', label: 'Username or email', type: FormFieldType.TEXT, autoComplete: 'username', isRequired: true },
@@ -24,6 +25,14 @@ export const REGISTER_FIELDS: FormFieldConfig<keyof RegisterFormValues>[] = [
     type: FormFieldType.PASSWORD,
     autoComplete: 'new-password',
     helperText: 'At least 8 characters with upper and lower case letters and a number',
+    isRequired: true
+  },
+  {
+    name: 'gender',
+    label: 'Gender',
+    type: FormFieldType.CHOICE,
+    options: GENDER_OPTIONS,
+    helperText: 'Used for your standard avatar until you add a photo',
     isRequired: true
   }
 ]
