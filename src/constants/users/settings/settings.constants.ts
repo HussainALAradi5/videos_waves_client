@@ -18,7 +18,7 @@ export const DEFAULT_SETTINGS: UserSettings = {
 
 /** Background of your own chat bubbles per colour setting. */
 export const BUBBLE_BACKGROUNDS: Record<BubbleColor, string> = {
-  [BubbleColor.WAVE]: 'linear-gradient(135deg, #22b8ff 0%, #7b61ff 100%)',
+  [BubbleColor.WAVE]: 'linear-gradient(135deg, #3a7bb5 0%, #1f4e79 100%)',
   [BubbleColor.OCEAN]: 'linear-gradient(135deg, #0a9df0 0%, #0f64a8 100%)',
   [BubbleColor.SUNSET]: 'linear-gradient(135deg, #ff7a9c 0%, #ff9f43 100%)',
   [BubbleColor.FOREST]: 'linear-gradient(135deg, #1fb88a 0%, #0f7a5c 100%)',

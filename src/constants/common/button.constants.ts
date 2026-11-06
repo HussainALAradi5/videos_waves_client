@@ -6,7 +6,8 @@ export const BUTTON_TONES = {
   outline: { variant: 'outline', colorPalette: 'gray' },
   ghost: { variant: 'ghost', colorPalette: 'gray' },
   danger: { variant: 'solid', colorPalette: 'red' },
-  dangerGhost: { variant: 'ghost', colorPalette: 'red' }
+  dangerGhost: { variant: 'ghost', colorPalette: 'red' },
+  dangerSubtle: { variant: 'subtle', colorPalette: 'red' }
 } as const
 
 export type ButtonTone = keyof typeof BUTTON_TONES

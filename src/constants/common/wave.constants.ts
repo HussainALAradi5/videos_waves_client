@@ -9,8 +9,8 @@ export const WAVE_VIEWBOX = '0 0 2880 120'
 /** Back to front: slow and faint, then faster and stronger. */
 export const WAVE_LAYERS = [
   { color: 'brand.400', opacity: 0.1, duration: 'waveSlow', height: '7rem', isReversed: true },
-  { color: 'violet.500', opacity: 0.08, duration: 'wave', height: '5.5rem', isReversed: false },
-  { color: 'coral.500', opacity: 0.06, duration: 'waveSlow', height: '4rem', isReversed: false }
+  { color: 'steel.500', opacity: 0.08, duration: 'wave', height: '5.5rem', isReversed: false },
+  { color: 'brand.700', opacity: 0.06, duration: 'waveSlow', height: '4rem', isReversed: false }
 ] as const
 
 export const WAVE_LOADER_BARS = 5

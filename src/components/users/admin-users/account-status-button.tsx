@@ -23,7 +23,7 @@ export function AccountStatusButton({ userName, role, isActive }: AccountStatusB
   }
   return (
     <>
-      <GenericButton size="xs" tone="danger" leftIcon={<LuUserX />} onClick={() => setIsConfirming(true)}>
+      <GenericButton size="xs" tone="dangerSubtle" leftIcon={<LuUserX />} onClick={() => setIsConfirming(true)}>
         {ADMIN_USERS_MESSAGES.DEACTIVATE}
       </GenericButton>
       <ConfirmDialog

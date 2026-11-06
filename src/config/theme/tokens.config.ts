@@ -1,30 +1,31 @@
 import { defineTokens } from '@chakra-ui/react'
 
-/** Ocean-to-sunset brand scale: the "wave" in Videos Waves. */
+/** Steel-blue brand scale: calm, single-hue blues. Coral is only the like accent. */
 export const tokens = defineTokens({
   colors: {
     brand: {
-      50: { value: '#e6f9ff' },
-      100: { value: '#c2efff' },
-      200: { value: '#8fe1ff' },
-      300: { value: '#55ceff' },
-      400: { value: '#22b8ff' },
-      500: { value: '#0a9df0' },
-      600: { value: '#0a7fd0' },
-      700: { value: '#0f64a8' },
-      800: { value: '#134f84' },
-      900: { value: '#133f69' },
-      950: { value: '#0b2745' }
+      50: { value: '#eef4fa' },
+      100: { value: '#d8e5f2' },
+      200: { value: '#b4cce4' },
+      300: { value: '#8aaed3' },
+      400: { value: '#5b8fc4' },
+      500: { value: '#3a7bb5' },
+      600: { value: '#2c6496' },
+      700: { value: '#1f4e79' },
+      800: { value: '#1a3f61' },
+      900: { value: '#16324c' },
+      950: { value: '#0d1f30' }
     },
     coral: {
       400: { value: '#ff7a9c' },
       500: { value: '#ff5c8a' },
       600: { value: '#e5406f' }
     },
-    violet: {
-      400: { value: '#9b8cff' },
-      500: { value: '#7b61ff' },
-      600: { value: '#6145ea' }
+    steel: {
+      300: { value: '#a9bdd1' },
+      400: { value: '#7f9bb8' },
+      500: { value: '#5c7ea0' },
+      600: { value: '#466684' }
     }
   },
   fonts: {
