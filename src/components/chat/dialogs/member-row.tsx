@@ -1,12 +1,12 @@
 'use client'
 
-import { Badge } from '@chakra-ui/react'
 import { LuShield, LuShieldOff, LuUserMinus } from 'react-icons/lu'
 import { CHAT_MESSAGES } from '@/constants/chat/chat-messages.constants'
 import { MemberRole } from '@/enums/chat/conversation/member-role.enum'
 import type { MemberRowProps } from '@/interfaces/components/chat/dialogs/member-row-props.interface'
 import { ActionMenu } from '@/components/common/dropdown/action-menu'
 import { UserRow } from '@/components/users/social/user-row'
+import { AdminBadge } from '../common/admin-badge'
 
 /** A group member with an Admin badge and, for admins, make admin, remove admin, and remove. */
 export function MemberRow({ member, canManage, onRemove, onSetRole }: MemberRowProps) {
@@ -16,11 +16,7 @@ export function MemberRow({ member, canManage, onRemove, onSetRole }: MemberRowP
       user={member.user}
       action={
         <>
-          {isAdmin && (
-            <Badge rounded="full" colorPalette="brand">
-              {CHAT_MESSAGES.ADMIN}
-            </Badge>
-          )}
+          {isAdmin && <AdminBadge />}
           {canManage && (
             <ActionMenu
               label={CHAT_MESSAGES.CHAT_INFO}

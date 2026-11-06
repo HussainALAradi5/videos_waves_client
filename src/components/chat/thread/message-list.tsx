@@ -4,6 +4,7 @@ import { Stack, Text } from '@chakra-ui/react'
 import { CHAT_BACKGROUNDS } from '@/constants/chat/chat-background.constants'
 import { CHAT_MESSAGES } from '@/constants/chat/chat-messages.constants'
 import { ConversationType } from '@/enums/chat/conversation/conversation-type.enum'
+import { MemberRole } from '@/enums/chat/conversation/member-role.enum'
 import type { MessageListProps } from '@/interfaces/components/chat/thread/message-list-props.interface'
 import { useAuth } from '@/hooks/users/auth/use-auth'
 import { useMessages } from '@/hooks/chat/message/use-messages'
@@ -26,6 +27,7 @@ export function MessageList({ conversation, onReply }: MessageListProps) {
   const newest = thread.items[0]
   const seenBy = newest && newest.sender.id === user?.id ? countSeenBy(newest, conversation.members) : 0
   const isGroup = conversation.type === ConversationType.GROUP
+  const adminIds = conversation.members.filter((member) => member.role === MemberRole.ADMIN).map((member) => member.user.id)
   const background = CHAT_BACKGROUNDS[conversation.me.background] ?? CHAT_BACKGROUNDS.none
 
   return (
@@ -46,7 +48,7 @@ export function MessageList({ conversation, onReply }: MessageListProps) {
       <LoadMore hasNextPage={thread.hasOlder} isFetchingNextPage={thread.isFetchingOlder} onLoadMore={thread.fetchOlder} label={CHAT_MESSAGES.LOAD_OLDER} />
       {thread.isLoading && <SkeletonList rows={4} />}
       {groups.map((group) => (
-        <MessageGroupView key={group.key} group={group} showSender={isGroup} members={conversation.members} onReply={onReply} />
+        <MessageGroupView key={group.key} group={group} showSender={isGroup} members={conversation.members} adminIds={adminIds} onReply={onReply} />
       ))}
       {seenBy > 0 && (
         <Text alignSelf="flex-end" fontSize="2xs" color="fg.muted" px="2">
