@@ -23,7 +23,7 @@ const EMPTY_PASSWORDS = { currentPassword: '', newPassword: '', confirmPassword:
 /** Photo, profile details, password, admin access, and deactivation. */
 export function AccountPanel({ user }: AvatarEditorProps) {
   const dialogs = useProfileDialogs()
-  const profileDefaults = { userName: user.userName, email: user.email, bio: user.bio, gender: user.gender ?? undefined } as ProfileFormValues
+  const profileDefaults = { userName: user.userName, email: user.email, phone: user.phone ?? '', bio: user.bio, gender: user.gender ?? undefined } as ProfileFormValues
   return (
     <Stack gap="6">
       <SettingsCard title={SETTINGS_MESSAGES.PHOTO_TITLE} description={SETTINGS_MESSAGES.PHOTO_DESCRIPTION}>

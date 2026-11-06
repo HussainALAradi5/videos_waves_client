@@ -5,6 +5,8 @@ import type { BaseEntity } from '@/interfaces/common/base/base-entity.interface'
 export interface User extends BaseEntity {
   userName: string
   email: string
+  /** Private: only you and admins see it. */
+  phone: string | null
   role: Role
   gender: Gender | null
   avatarUrl: string | null

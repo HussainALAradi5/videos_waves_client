@@ -12,6 +12,7 @@ export function SelectDropdown(props: SelectDropdownProps) {
     () => createListCollection({ items: options, itemToString: (item) => item.label, isItemDisabled: (item) => Boolean(item.isDisabled) }),
     [options]
   )
+  const selected = options.find((option) => option.value === value)
   return (
     <Select.Root
       collection={collection}
@@ -26,7 +27,7 @@ export function SelectDropdown(props: SelectDropdownProps) {
       {label && <Select.Label>{label}</Select.Label>}
       <Select.Control>
         <Select.Trigger rounded="xl" bg="app.surface">
-          <Select.ValueText placeholder={placeholder} />
+          <Select.ValueText placeholder={placeholder}>{selected?.colorPalette && <DropdownOptionRow option={selected} />}</Select.ValueText>
         </Select.Trigger>
         <Select.IndicatorGroup>
           <Select.Indicator />

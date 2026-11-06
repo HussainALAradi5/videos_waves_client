@@ -1,6 +1,7 @@
 export enum FormFieldType {
   TEXT = 'text',
   EMAIL = 'email',
+  TEL = 'tel',
   PASSWORD = 'password',
   URL = 'url',
   TEXTAREA = 'textarea',

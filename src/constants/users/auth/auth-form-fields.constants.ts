@@ -19,6 +19,7 @@ export const REGISTER_FIELDS: FormFieldConfig<keyof RegisterFormValues>[] = [
     isRequired: true
   },
   { name: 'email', label: 'Email', type: FormFieldType.EMAIL, autoComplete: 'email', isRequired: true },
+  { name: 'phone', label: 'Phone number (optional)', type: FormFieldType.TEL, autoComplete: 'tel', placeholder: '+973 3300 1122', helperText: 'Private. People who know it can find you to message you.' },
   {
     name: 'password',
     label: 'Password',
