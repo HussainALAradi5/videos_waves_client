@@ -1,5 +1,7 @@
 'use client'
 
+import type { UpdateConversationRequestDto } from '@/dtos/chat/conversation/update-conversation-request.dto'
+import type { MuteDuration } from '@/enums/chat/conversation/mute-duration.enum'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { QUERY_KEYS } from '@/constants/common/query-keys.constants'
@@ -21,13 +23,13 @@ export const useConversationActions = (conversationId: string) => {
   const mutate = <T>(run: () => Promise<T>, after: () => Promise<unknown> = refresh) =>
     run().then(after, (error: unknown) => notifyError(error))
 
-  const update = useMutation({ mutationFn: (dto: { title?: string; isMuted?: boolean }) => conversationService.update(conversationId, dto), onSuccess: refresh, onError: notifyError })
+  const update = useMutation({ mutationFn: (dto: UpdateConversationRequestDto) => conversationService.update(conversationId, dto), onSuccess: refresh, onError: notifyError })
   return {
     accept: () => mutate(() => conversationService.accept(conversationId)),
     hide: () => mutate(() => conversationService.hide(conversationId), leaveToInbox),
     block: (userName: string) => mutate(() => socialService.block(userName), leaveToInbox),
     leave: (myUserId: string) => mutate(() => conversationService.removeMember(conversationId, myUserId), leaveToInbox),
-    setMuted: (isMuted: boolean) => update.mutateAsync({ isMuted }),
+    setMute: (mute: MuteDuration) => update.mutateAsync({ mute }),
     rename: (title: string) => update.mutateAsync({ title }),
     addMembers: (userNames: string[]) => mutate(() => conversationService.addMembers(conversationId, userNames)),
     removeMember: (userId: string) => mutate(() => conversationService.removeMember(conversationId, userId)),

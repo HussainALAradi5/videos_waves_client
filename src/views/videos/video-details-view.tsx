@@ -37,7 +37,7 @@ export function VideoDetailsView({ videoId }: VideoDetailsViewProps) {
             <VideoSummary video={details.video} canManage={details.canManage} onToggleLike={details.toggleLike} />
           </GridItem>
           <GridItem>
-            <CommentSection videoId={details.video.id} videoOwnerId={details.video.owner.id} />
+            <CommentSection videoId={details.video.id} videoOwnerId={details.video.owner.id} commentsCount={details.video.commentsCount} />
           </GridItem>
         </Grid>
       )}

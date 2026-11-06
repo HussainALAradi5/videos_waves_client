@@ -23,9 +23,9 @@ export const SOCIAL_MESSAGES = {
   NO_VIDEOS: 'No videos yet',
   NO_PEOPLE: 'Nobody here yet',
   NOT_FOUND: 'This account does not exist or is not available.',
-  SEARCH_PEOPLE: 'Email or phone number',
-  SEARCH_EMPTY: 'No account uses that email or phone number.',
-  SEARCH_PROMPT: 'Enter someone’s full email or phone number to find them.',
+  SEARCH_PEOPLE: 'Username, email, or phone number',
+  SEARCH_EMPTY: 'No one matches that search.',
+  SEARCH_PROMPT: 'Type part of a username, email, or phone number.',
   SEARCH_TITLE: 'Search',
-  SEARCH_DESCRIPTION: 'Find someone by their exact email or phone number, with the country code.'
+  SEARCH_DESCRIPTION: 'Find people by username, email, or phone number. Capital letters do not matter.'
 } as const

@@ -65,3 +65,19 @@ Render files only render: props interfaces, hooks, constants, and helpers are im
 ## Auth model
 
 Access and refresh tokens are stored in `localStorage`. The Axios auth interceptor attaches the access token, and on a 401 it refreshes once, shared across parallel requests, and retries. A failed refresh clears the session and shows a "session expired" toast. Protected pages use the `RequireAuth` guard; the API still enforces every permission. Because the tokens are readable by page scripts, an XSS bug could expose them. The security notes in the documentation repository cover this.
+
+## Screenshots
+
+Captured from the production build (`npm run build && npm start`) against the in-memory API with the demo seed, signed in as `viewer`.
+
+| Feed (dark) | Video with comments and the Owner badge |
+| --- | --- |
+| ![Feed in dark mode](docs/screenshots/desktop-dark-feed.jpg) | ![Video page](docs/screenshots/desktop-dark-video.jpg) |
+
+| Live chat | Reactions and chat options |
+| --- | --- |
+| ![Chat thread](docs/screenshots/desktop-dark-chat.jpg) | ![Reaction bar and chat menu](docs/screenshots/desktop-dark-chat-options.jpg) |
+
+| Profile (light) | Feed (light, tablet width) |
+| --- | --- |
+| ![Profile in light mode](docs/screenshots/desktop-light-profile.jpg) | ![Feed at tablet width](docs/screenshots/tablet-light-feed.jpg) |

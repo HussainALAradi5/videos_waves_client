@@ -11,8 +11,9 @@ import { conversationTitle, directPartner } from '@/utilities/chat/conversation-
 import { formatRelativeDate } from '@/utilities/format/date-format.utility'
 import { UserAvatar } from '@/components/common/avatars/user-avatar'
 import { MotionBox } from '@/components/common/motion/motion-box'
+import { ChatOptionsMenu } from '../options/chat-options-menu'
 
-/** One chat in the inbox: avatar (with online dot), name, last message, time, and unread dot. */
+/** One chat in the inbox: avatar (with online dot), name, last message, time, unread dot, and the ⋯ chat options. */
 export function InboxRow({ conversation, isActive, href }: InboxRowProps) {
   const { user } = useAuth()
   const { messagePreviews } = useSettings()
@@ -23,7 +24,8 @@ export function InboxRow({ conversation, isActive, href }: InboxRowProps) {
 
   return (
     <MotionBox whileHover={{ x: 2 }} layout>
-      <HStack asChild gap="3" px="3" py="2.5" rounded="xl" bg={isActive ? 'bg.muted' : 'transparent'} _hover={{ bg: 'bg.muted' }}>
+      <HStack gap="1" pe="1" rounded="xl" bg={isActive ? 'bg.muted' : 'transparent'} _hover={{ bg: 'bg.muted' }}>
+      <HStack asChild gap="3" px="3" py="2.5" flex="1" minW="0">
         <NextLink href={href}>
           {partner ? (
             <UserAvatar user={partner.user} size="md" isOnline={partner.isOnline} />
@@ -50,6 +52,8 @@ export function InboxRow({ conversation, isActive, href }: InboxRowProps) {
           </Stack>
           {isUnread && <Box boxSize="2.5" rounded="full" bgImage="{gradients.brand}" flexShrink={0} />}
         </NextLink>
+      </HStack>
+      <ChatOptionsMenu conversation={conversation} />
       </HStack>
     </MotionBox>
   )

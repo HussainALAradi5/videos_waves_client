@@ -10,6 +10,7 @@ import { useTypingUsers } from '@/hooks/chat/realtime/use-typing-users'
 import { conversationTitle, directPartner } from '@/utilities/chat/conversation-display.utility'
 import { UserAvatar } from '@/components/common/avatars/user-avatar'
 import { GenericIconButton } from '@/components/common/buttons/generic-icon-button'
+import { ChatOptionsMenu } from '../options/chat-options-menu'
 
 /** Back (phones), who you are talking to, their status or typing, and the details button. */
 export function ThreadHeader({ conversation, onOpenInfo }: ThreadHeaderProps) {
@@ -46,6 +47,7 @@ export function ThreadHeader({ conversation, onOpenInfo }: ThreadHeaderProps) {
       <GenericIconButton label={CHAT_MESSAGES.CHAT_INFO} onClick={onOpenInfo}>
         <LuInfo />
       </GenericIconButton>
+      <ChatOptionsMenu conversation={conversation} />
     </HStack>
   )
 }

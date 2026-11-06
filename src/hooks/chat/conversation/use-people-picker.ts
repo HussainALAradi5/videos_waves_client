@@ -1,6 +1,5 @@
 'use client'
 
-import { isContactQuery } from '@/utilities/users/contact.utility'
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { PAGE_SIZES, SEARCH_DEBOUNCE_MS } from '@/constants/common/limits.constants'
@@ -9,7 +8,7 @@ import type { DropdownOption } from '@/interfaces/common/dropdown/dropdown-optio
 import { socialService } from '@/services/users/social/social.service'
 import { useDebouncedValue } from '@/hooks/common/use-debounced-value'
 
-/** People found by exact email or phone for the multi-select picker (yourself excluded), plus the current choice. */
+/** People found by username, email, or phone for the multi-select picker (yourself excluded), plus the current choice. */
 export const usePeoplePicker = () => {
   const [search, setSearch] = useState('')
   const [selected, setSelected] = useState<DropdownOption[]>([])
@@ -17,7 +16,7 @@ export const usePeoplePicker = () => {
   const query = useQuery({
     queryKey: QUERY_KEYS.userSearch(`picker:${debounced}`),
     queryFn: ({ signal }) => socialService.search({ search: debounced, page: 1, pageSize: PAGE_SIZES.PEOPLE }, signal),
-    enabled: isContactQuery(debounced)
+    enabled: debounced !== ''
   })
   const people = (query.data?.items ?? []).filter((person) => !person.isMe)
   return { people, selected, setSelected, setSearch, isLoading: query.isFetching, reset: () => setSelected([]) }

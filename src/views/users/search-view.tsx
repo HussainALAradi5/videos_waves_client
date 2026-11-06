@@ -14,14 +14,14 @@ import { FollowButton } from '@/components/users/social/follow-button'
 import { UserRow } from '@/components/users/social/user-row'
 
 export function SearchView() {
-  const { search, setSearch, results, isContact } = useUserSearch()
+  const { search, setSearch, results, hasQuery } = useUserSearch()
   return (
     <Stack gap="6" maxW="2xl" mx="auto">
       <PageHeader title={SOCIAL_MESSAGES.SEARCH_TITLE} description={SOCIAL_MESSAGES.SEARCH_DESCRIPTION} />
       <SearchInput value={search} onChange={setSearch} placeholder={SOCIAL_MESSAGES.SEARCH_PEOPLE} />
       {results.isLoading && <SkeletonList rows={6} />}
-      {!isContact && <EmptyState title={SOCIAL_MESSAGES.SEARCH_PROMPT} />}
-      {isContact && !results.isLoading && results.items.length === 0 && <EmptyState title={SOCIAL_MESSAGES.SEARCH_EMPTY} />}
+      {!hasQuery && <EmptyState title={SOCIAL_MESSAGES.SEARCH_PROMPT} />}
+      {hasQuery && !results.isLoading && results.items.length === 0 && <EmptyState title={SOCIAL_MESSAGES.SEARCH_EMPTY} />}
       <StaggerGroup key={search}>
         <Stack gap="1">
           {results.items.map((person) => (
