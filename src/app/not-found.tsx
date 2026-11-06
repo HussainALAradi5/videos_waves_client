@@ -1,19 +1,21 @@
-import NextLink from 'next/link'
-import { Button } from '@chakra-ui/react'
+'use client'
+
+import { useEffect, useRef } from 'react'
+import { useRouter } from 'next/navigation'
 import { MESSAGES } from '@/constants/common/messages.constants'
 import { PAGE_ROUTES } from '@/constants/common/routes.constants'
-import { EmptyState } from '@/components/common/feedback/empty-state'
+import { notifyWarning } from '@/utilities/toast/notify.utility'
+import { LoadingState } from '@/components/common/feedback/loading-state'
 
+/** Any unknown address: back to the home feed with a warning toast. */
 export default function NotFound() {
-  return (
-    <EmptyState
-      title={MESSAGES.COMMON.NOT_FOUND_TITLE}
-      description={MESSAGES.COMMON.NOT_FOUND_DESCRIPTION}
-      action={
-        <Button asChild variant="outline">
-          <NextLink href={PAGE_ROUTES.HOME}>{MESSAGES.COMMON.BACK_HOME}</NextLink>
-        </Button>
-      }
-    />
-  )
+  const router = useRouter()
+  const hasRedirected = useRef(false)
+  useEffect(() => {
+    if (hasRedirected.current) return
+    hasRedirected.current = true
+    notifyWarning(MESSAGES.COMMON.INVALID_PAGE)
+    router.replace(PAGE_ROUTES.HOME)
+  }, [router])
+  return <LoadingState />
 }

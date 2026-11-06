@@ -14,6 +14,9 @@ export const CHAT_PAGE_SIZES = { INBOX: 20, MESSAGES: 30 } as const
 /** Messages closer than this from the same sender share one bubble group. */
 export const MESSAGE_GROUP_WINDOW_MS = 5 * 60 * 1000
 
+/** Unsend waits this long for Undo before telling the server (as on Instagram). */
+export const UNSEND_UNDO_MS = 5000
+
 export const CHAT_ATTACHMENT_ACCEPT = {
   'image/*': ['.jpg', '.jpeg', '.png', '.webp', '.gif'],
   'video/mp4': ['.mp4'],

@@ -20,7 +20,7 @@ export function PeopleDialog({ userName, list, onClose }: PeopleDialogProps) {
       {!people.isLoading && people.items.length === 0 && <EmptyState title={SOCIAL_MESSAGES.NO_PEOPLE} />}
       <Stack gap="1">
         {people.items.map((person) => (
-          <UserRow key={person.id} user={person} onNavigate={onClose} action={person.isMe ? undefined : <FollowButton userName={person.userName} isFollowing={person.isFollowing} size="xs" />} />
+          <UserRow key={person.id} user={person} onNavigate={onClose} action={person.isMe ? undefined : <FollowButton userName={person.userName} isFollowing={person.isFollowing} isRequested={person.isRequested} size="xs" />} />
         ))}
       </Stack>
       <LoadMore hasNextPage={people.hasNextPage} isFetchingNextPage={people.isFetchingNextPage} onLoadMore={people.fetchNextPage} />

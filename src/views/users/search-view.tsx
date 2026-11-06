@@ -26,7 +26,7 @@ export function SearchView() {
         <Stack gap="1">
           {results.items.map((person) => (
             <Animated key={person.id}>
-              <UserRow user={person} action={person.isMe ? undefined : <FollowButton userName={person.userName} isFollowing={person.isFollowing} size="xs" />} />
+              <UserRow user={person} action={person.isMe ? undefined : <FollowButton userName={person.userName} isFollowing={person.isFollowing} isRequested={person.isRequested} size="xs" />} />
             </Animated>
           ))}
         </Stack>

@@ -6,5 +6,6 @@ export enum ChatEvent {
   CONVERSATION_UPDATED = 'conversation:updated',
   CONVERSATION_READ = 'conversation:read',
   TYPING = 'typing',
-  PRESENCE = 'presence'
+  PRESENCE = 'presence',
+  NOTIFICATION_NEW = 'notification:new'
 }

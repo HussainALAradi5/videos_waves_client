@@ -17,14 +17,16 @@ import { LoadMore } from '@/components/common/lists/load-more'
 import { NewMessageDialog } from '../dialogs/new-message-dialog'
 import { CreateGroupDialog } from '../dialogs/create-group-dialog'
 import { InboxRow } from './inbox-row'
+import { StatusPicker } from './status-picker'
 
 export function InboxPanel({ activeConversationId, sharedVideoId }: InboxPanelProps) {
   const inbox = useInbox()
   const tabs = [
-    { value: InboxFolder.INBOX, label: CHAT_MESSAGES.INBOX },
-    { value: InboxFolder.REQUESTS, label: CHAT_MESSAGES.REQUESTS, badge: inbox.requestCount },
+    { value: InboxFolder.INBOX, label: CHAT_MESSAGES.ALL },
+    { value: InboxFolder.UNREAD, label: CHAT_MESSAGES.UNREAD },
+    { value: InboxFolder.READ, label: CHAT_MESSAGES.READ },
     { value: InboxFolder.GROUPS, label: CHAT_MESSAGES.GROUPS },
-    { value: InboxFolder.UNREAD, label: CHAT_MESSAGES.UNREAD }
+    { value: InboxFolder.REQUESTS, label: CHAT_MESSAGES.REQUESTS, badge: inbox.requestCount }
   ]
   const linkFor = (id: string) => `${PAGE_ROUTES.conversation(id)}${sharedVideoId ? `?${SHARE_VIDEO_QUERY_PARAM}=${sharedVideoId}` : ''}`
 
@@ -33,6 +35,7 @@ export function InboxPanel({ activeConversationId, sharedVideoId }: InboxPanelPr
       <HStack justify="space-between">
         <Heading size="lg">{CHAT_MESSAGES.TITLE}</Heading>
         <HStack gap="1">
+          <StatusPicker />
           <GenericIconButton label={CHAT_MESSAGES.NEW_GROUP} onClick={() => inbox.setDialog('group')}>
             <LuUsers />
           </GenericIconButton>
@@ -57,7 +60,7 @@ export function InboxPanel({ activeConversationId, sharedVideoId }: InboxPanelPr
         {inbox.conversations.isLoading && <SkeletonList rows={6} />}
         {!inbox.conversations.isLoading && inbox.conversations.items.length === 0 && (
           <EmptyState
-            title={inbox.folder === InboxFolder.REQUESTS ? CHAT_MESSAGES.EMPTY_REQUESTS : CHAT_MESSAGES.EMPTY_INBOX}
+            title={inbox.folder === InboxFolder.REQUESTS ? CHAT_MESSAGES.EMPTY_REQUESTS : inbox.folder === InboxFolder.INBOX ? CHAT_MESSAGES.EMPTY_INBOX : CHAT_MESSAGES.EMPTY_FILTER}
             description={inbox.folder === InboxFolder.INBOX ? CHAT_MESSAGES.EMPTY_INBOX_HINT : undefined}
           />
         )}

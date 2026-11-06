@@ -3,15 +3,16 @@
 import { useQueryClient, type InfiniteData } from '@tanstack/react-query'
 import type { CursorPage } from '@/interfaces/common/pagination/cursor-page.interface'
 import { CHAT_MESSAGES } from '@/constants/chat/chat-messages.constants'
+import { UNSEND_UNDO_MS } from '@/constants/chat/chat.constants'
 import { QUERY_KEYS } from '@/constants/common/query-keys.constants'
 import { DeleteScope } from '@/enums/chat/message/delete-scope.enum'
 import type { Message } from '@/interfaces/chat/message/message.interface'
 import { messageService } from '@/services/chat/message/message.service'
 import { chatCache } from '@/utilities/cache/chat-cache.utility'
 import { removeInfiniteItems } from '@/utilities/cache/infinite-cache.utility'
-import { notifyError, notifySuccess } from '@/utilities/toast/notify.utility'
+import { notifyError, notifySuccess, notifyUndo } from '@/utilities/toast/notify.utility'
 
-/** React, edit, unsend, delete for me, and copy; the cache updates at once (sockets confirm for others). */
+/** React, edit, unsend (with 5 s Undo), delete for me, and copy; the cache updates at once (sockets confirm for others). */
 export const useMessageActions = (message: Message) => {
   const queryClient = useQueryClient()
   const { conversationId, id } = message
@@ -24,7 +25,21 @@ export const useMessageActions = (message: Message) => {
         chatCache.replaceMessage(queryClient, updated)
       }),
     edit: (body: string) => guard(async () => chatCache.replaceMessage(queryClient, await messageService.edit(conversationId, id, body))),
-    unsend: () => guard(() => messageService.remove(conversationId, id, DeleteScope.EVERYONE)),
+    /** Hides it at once and offers Undo for 5 seconds; only then is the server asked to unsend. */
+    unsend: () => {
+      chatCache.replaceMessage(queryClient, { ...message, isUnsent: true })
+      const restore = () => chatCache.replaceMessage(queryClient, message)
+      const timer = setTimeout(() => {
+        messageService.remove(conversationId, id, DeleteScope.EVERYONE).catch((error: unknown) => {
+          restore()
+          notifyError(error)
+        })
+      }, UNSEND_UNDO_MS)
+      notifyUndo(CHAT_MESSAGES.UNSENT, () => {
+        clearTimeout(timer)
+        restore()
+      }, { durationMs: UNSEND_UNDO_MS, isPausable: false })
+    },
     deleteForMe: () =>
       guard(async () => {
         await messageService.remove(conversationId, id, DeleteScope.ME)

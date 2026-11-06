@@ -6,12 +6,13 @@ import type { ActionMenuProps } from '@/interfaces/components/common/dropdown/ac
 import { GenericIconButton } from '../buttons/generic-icon-button'
 import { ActionMenuEntries } from './action-menu-entries'
 
-/** The three-dots menu used for edit, delete, block, and every other per-item action. */
-export function ActionMenu({ items, label, trigger, size = 'sm' }: ActionMenuProps) {
+/** The three-dots menu used for edit, delete, block, and every other per-item action; optionally also on right-click. */
+export function ActionMenu({ items, label, trigger, size = 'sm', contextArea }: ActionMenuProps) {
   const visible = items.filter((item) => !item.isHidden)
-  if (visible.length === 0) return null
+  if (visible.length === 0) return contextArea ?? null
   return (
     <Menu.Root positioning={{ placement: 'bottom-end' }}>
+      {contextArea && <Menu.ContextTrigger asChild>{contextArea}</Menu.ContextTrigger>}
       <Menu.Trigger asChild>
         {trigger ?? (
           <GenericIconButton label={label} size={size}>

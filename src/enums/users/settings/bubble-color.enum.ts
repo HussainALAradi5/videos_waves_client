@@ -3,5 +3,6 @@ export enum BubbleColor {
   OCEAN = 'ocean',
   SUNSET = 'sunset',
   FOREST = 'forest',
-  MONO = 'mono'
+  MONO = 'mono',
+  NEUTRAL = 'neutral'
 }

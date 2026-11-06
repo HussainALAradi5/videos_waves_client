@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import { HStack, Popover, Portal } from '@chakra-ui/react'
 import { LuSmilePlus } from 'react-icons/lu'
 import { CHAT_MESSAGES } from '@/constants/chat/chat-messages.constants'
@@ -9,11 +8,10 @@ import type { ReactionPickerProps } from '@/interfaces/components/chat/thread/re
 import { GenericIconButton } from '@/components/common/buttons/generic-icon-button'
 import { MotionBox } from '@/components/common/motion/motion-box'
 
-/** The quick emoji bar; each emoji pops on hover, and picking one closes the bar. */
-export function ReactionPicker({ myReaction, onReact }: ReactionPickerProps) {
-  const [isOpen, setIsOpen] = useState(false)
+/** The quick emoji bar (the button, or right-click on the message); each emoji pops on hover, and picking one closes it. */
+export function ReactionPicker({ myReaction, onReact, isOpen, onOpenChange }: ReactionPickerProps) {
   return (
-    <Popover.Root positioning={{ placement: 'top' }} open={isOpen} onOpenChange={(details) => setIsOpen(details.open)}>
+    <Popover.Root positioning={{ placement: 'top' }} open={isOpen} onOpenChange={(details) => onOpenChange(details.open)}>
       <Popover.Trigger asChild>
         <GenericIconButton label={CHAT_MESSAGES.REACT} size="xs">
           <LuSmilePlus />
@@ -34,7 +32,7 @@ export function ReactionPicker({ myReaction, onReact }: ReactionPickerProps) {
                   whileHover={{ scale: 1.35, y: -3 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={() => {
-                    setIsOpen(false)
+                    onOpenChange(false)
                     onReact(emoji)
                   }}
                   aria-label={emoji}

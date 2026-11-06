@@ -46,7 +46,9 @@ export const chatCache = {
       conversation && {
         ...conversation,
         members: conversation.members.map((member) =>
-          member.user.id === event.userId && member.isOnline !== null ? { ...member, isOnline: event.isOnline } : member
+          member.user.id === event.userId && member.isOnline !== null
+            ? { ...member, isOnline: event.isOnline, presence: event.presence, statusText: event.statusText }
+            : member
         )
       }
     )

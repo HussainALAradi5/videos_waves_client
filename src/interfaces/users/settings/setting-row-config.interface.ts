@@ -8,4 +8,7 @@ export interface SettingRowConfig {
   description: string
   control: SettingControl
   options?: DropdownOption[]
+  /** Text rows: the longest value and the hint inside the box. */
+  maxLength?: number
+  placeholder?: string
 }

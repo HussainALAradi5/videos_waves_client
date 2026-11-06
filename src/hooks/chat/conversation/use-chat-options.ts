@@ -1,32 +1,43 @@
 'use client'
 
 import { useState } from 'react'
+import { CHAT_MESSAGES } from '@/constants/chat/chat-messages.constants'
 import { CHAT_OPTIONS_MESSAGES } from '@/constants/chat/chat-options.constants'
+import type { ChatBackground } from '@/enums/chat/conversation/chat-background.enum'
 import { MuteDuration } from '@/enums/chat/conversation/mute-duration.enum'
 import { ConversationType } from '@/enums/chat/conversation/conversation-type.enum'
 import type { Conversation } from '@/interfaces/chat/conversation/conversation.interface'
 import { useAuth } from '@/hooks/users/auth/use-auth'
-import { conversationTitle } from '@/utilities/chat/conversation-display.utility'
+import { conversationTitle, directPartner } from '@/utilities/chat/conversation-display.utility'
 import { notifySuccess } from '@/utilities/toast/notify.utility'
 import { useConversationActions } from './use-conversation-actions'
 
-type PendingAction = 'delete' | 'leave' | null
+type PendingAction = 'delete' | 'leave' | 'block' | 'background' | null
 
-/** Mute, delete chat, and leave group for one conversation, with a confirmation before the last two. */
+/** Mute, background, delete chat, block (direct chats), and leave group for one conversation, with a confirmation before the last two. */
 export const useChatOptions = (conversation: Conversation) => {
   const { user } = useAuth()
   const actions = useConversationActions(conversation.id)
   const [pending, setPending] = useState<PendingAction>(null)
   const title = conversationTitle(conversation)
+  const partner = directPartner(conversation)
 
   const mute = async (duration: MuteDuration) => {
     await actions.setMute(duration)
     notifySuccess(duration === MuteDuration.OFF ? CHAT_OPTIONS_MESSAGES.UNMUTED : CHAT_OPTIONS_MESSAGES.MUTED)
   }
+  const setBackground = async (background: ChatBackground) => {
+    await actions.setBackground(background)
+    notifySuccess(CHAT_MESSAGES.BACKGROUND_SAVED)
+    setPending(null)
+  }
   const confirm = async () => {
     if (pending === 'delete') {
       await actions.hide()
       notifySuccess(CHAT_OPTIONS_MESSAGES.DELETED)
+    } else if (pending === 'block' && partner) {
+      await actions.block(partner.user.userName)
+      notifySuccess(CHAT_OPTIONS_MESSAGES.BLOCKED(partner.user.userName))
     } else if (pending === 'leave' && user) {
       await actions.leave(user.id)
       notifySuccess(CHAT_OPTIONS_MESSAGES.LEFT(title))
@@ -41,6 +52,11 @@ export const useChatOptions = (conversation: Conversation) => {
     pending,
     requestDelete: () => setPending('delete'),
     requestLeave: () => setPending('leave'),
+    partnerName: partner?.user.userName ?? null,
+    requestBlock: () => setPending('block'),
+    background: conversation.me.background,
+    requestBackground: () => setPending('background'),
+    setBackground,
     cancel: () => setPending(null),
     confirm
   }

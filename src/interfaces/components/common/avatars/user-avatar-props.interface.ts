@@ -1,3 +1,4 @@
+import type { PresenceState } from '@/enums/chat/realtime/presence-state.enum'
 import type { PublicUser } from '@/interfaces/users/user/public-user.interface'
 
 export interface UserAvatarProps {
@@ -7,4 +8,6 @@ export interface UserAvatarProps {
   hasRing?: boolean
   /** Shows a green dot; null hides it (status unknown or private). */
   isOnline?: boolean | null
+  /** Colours the dot (green online, amber away, red busy); offline or null hides it. */
+  presence?: PresenceState | null
 }

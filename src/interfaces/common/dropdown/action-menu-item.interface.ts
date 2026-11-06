@@ -8,5 +8,8 @@ export interface ActionMenuItem {
   /** Danger items are red and separated from the rest. */
   isDanger?: boolean
   isHidden?: boolean
-  onSelect: () => void
+  /** Ignored when the item has `children`. */
+  onSelect?: () => void
+  /** Shows these as a submenu instead of running onSelect. */
+  children?: ActionMenuItem[]
 }

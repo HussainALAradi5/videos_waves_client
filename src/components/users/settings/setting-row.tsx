@@ -7,8 +7,9 @@ import { useSettings } from '@/hooks/users/settings/use-settings'
 import { useUpdateSetting } from '@/hooks/users/settings/use-update-setting'
 import { SelectDropdown } from '@/components/common/dropdown/select-dropdown'
 import { BubbleSwatches } from './bubble-swatches'
+import { SettingTextInput } from './setting-text-input'
 
-/** One setting: label and description on the left, its control (switch, dropdown, swatches) on the right. Saves instantly. */
+/** One setting: label and description on the left, its control (switch, dropdown, swatches, text) on the right. Saves instantly. */
 export function SettingRow({ config }: SettingRowProps) {
   const settings = useSettings()
   const update = useUpdateSetting()
@@ -33,6 +34,9 @@ export function SettingRow({ config }: SettingRowProps) {
         <SelectDropdown options={config.options ?? []} value={String(value)} onChange={save} width="56" />
       )}
       {config.control === SettingControl.SWATCHES && <BubbleSwatches options={config.options ?? []} value={String(value)} onChange={save} />}
+      {config.control === SettingControl.TEXT && (
+        <SettingTextInput key={String(value)} label={config.label} value={String(value)} maxLength={config.maxLength} placeholder={config.placeholder} onSave={save} />
+      )}
     </Flex>
   )
 }

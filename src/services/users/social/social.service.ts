@@ -22,6 +22,9 @@ export const socialService = {
   restrict: (userName: string) => putData<RelationState>(USER_ENDPOINTS.restrict(userName)),
   unrestrict: (userName: string) => deleteData<RelationState>(USER_ENDPOINTS.restrict(userName)),
   blocked: (query: RelationQueryDto, signal?: AbortSignal) => getPage<PublicUser>(USER_ENDPOINTS.ME_BLOCKED, query, signal),
+  followRequests: (query: RelationQueryDto, signal?: AbortSignal) => getPage<UserSummary>(USER_ENDPOINTS.ME_FOLLOW_REQUESTS, query, signal),
+  acceptRequest: (userName: string) => putData<{ userName: string; followsYou: boolean }>(USER_ENDPOINTS.followRequest(userName)),
+  declineRequest: (userName: string) => deleteData<{ userName: string; followsYou: boolean }>(USER_ENDPOINTS.followRequest(userName)),
   restricted: (query: RelationQueryDto, signal?: AbortSignal) =>
     getPage<PublicUser>(USER_ENDPOINTS.ME_RESTRICTED, query, signal)
 }

@@ -8,4 +8,6 @@ export interface ActionMenuProps {
   /** Replaces the default three-dots trigger. */
   trigger?: ReactNode
   size?: 'xs' | 'sm' | 'md'
+  /** Right-clicking this area opens the same menu at the pointer (inbox rows). */
+  contextArea?: ReactNode
 }

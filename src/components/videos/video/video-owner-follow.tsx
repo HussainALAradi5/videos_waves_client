@@ -8,5 +8,14 @@ import { FollowButton } from '@/components/users/social/follow-button'
 export function VideoOwnerFollow({ userName }: VideoOwnerFollowProps) {
   const { profile } = useProfile(userName)
   if (!profile || profile.isMe || profile.isBlocked) return null
-  return <FollowButton userName={userName} isFollowing={profile.isFollowing} followsYou={profile.followsYou} size="xs" />
+  return (
+    <FollowButton
+      userName={userName}
+      isFollowing={profile.isFollowing}
+      isRequested={profile.isRequested}
+      isPrivate={profile.isPrivate}
+      followsYou={profile.followsYou}
+      size="xs"
+    />
+  )
 }

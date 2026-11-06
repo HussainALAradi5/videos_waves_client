@@ -34,7 +34,15 @@ export function ProfileActions({ profile }: ProfileActionsProps) {
   }
   return (
     <HStack gap="2">
-      {!profile.isBlocked && <FollowButton userName={profile.userName} isFollowing={profile.isFollowing} followsYou={profile.followsYou} />}
+      {!profile.isBlocked && (
+        <FollowButton
+          userName={profile.userName}
+          isFollowing={profile.isFollowing}
+          isRequested={profile.isRequested}
+          isPrivate={profile.isPrivate}
+          followsYou={profile.followsYou}
+        />
+      )}
       {isAuthenticated && !profile.isBlocked && (
         <GenericButton tone="secondary" size="sm" leftIcon={<LuMessageCircle />} onClick={() => startChat(profile.userName)}>
           {SOCIAL_MESSAGES.MESSAGE}

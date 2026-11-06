@@ -1,24 +1,35 @@
 'use client'
 
-import { Toaster as ChakraToaster, Portal, Spinner, Stack, Toast } from '@chakra-ui/react'
-import { toaster } from '@/config/ui/toaster.config'
+import { Portal, Stack } from '@chakra-ui/react'
+import { AnimatePresence } from 'motion/react'
+import { TOAST_MAX_VISIBLE, TOAST_REGION_LABEL } from '@/constants/common/toast.constants'
+import { useToasts } from '@/hooks/common/toast/use-toasts'
+import { ToastCard } from '@/components/common/feedback/toast-card'
 
+/** The toast stack: top right on wide screens, full width on phones; newest at the bottom. */
 export function AppToaster() {
+  const toasts = useToasts().slice(0, TOAST_MAX_VISIBLE)
   return (
     <Portal>
-      <ChakraToaster toaster={toaster} insetInline={{ mdDown: '4' }}>
-        {(toast) => (
-          <Toast.Root width={{ md: 'sm' }} rounded="xl" shadow="lg">
-            {toast.type === 'loading' ? <Spinner size="sm" /> : <Toast.Indicator />}
-            <Stack gap="1" flex="1" maxWidth="100%">
-              {toast.title && <Toast.Title>{toast.title}</Toast.Title>}
-              {toast.description && <Toast.Description>{toast.description}</Toast.Description>}
-            </Stack>
-            {toast.action && <Toast.ActionTrigger rounded="full">{toast.action.label}</Toast.ActionTrigger>}
-            {toast.closable && <Toast.CloseTrigger />}
-          </Toast.Root>
-        )}
-      </ChakraToaster>
+      <Stack
+        role="region"
+        aria-label={TOAST_REGION_LABEL}
+        aria-live="polite"
+        position="fixed"
+        zIndex="toast"
+        top={{ base: '3', md: '5' }}
+        insetEnd={{ base: '3', md: '5' }}
+        insetStart={{ base: '3', md: 'auto' }}
+        width={{ md: 'sm' }}
+        gap="2.5"
+        pointerEvents="none"
+      >
+        <AnimatePresence initial={false}>
+          {toasts.map((toast) => (
+            <ToastCard key={toast.id} toast={toast} />
+          ))}
+        </AnimatePresence>
+      </Stack>
     </Portal>
   )
 }

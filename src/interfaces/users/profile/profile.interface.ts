@@ -15,4 +15,11 @@ export interface Profile extends PublicUser {
   followsYou: boolean
   isBlocked: boolean
   isRestricted: boolean
+  /** You asked to follow this private account and are waiting. */
+  isRequested: boolean
+  /** They asked to follow your private account. */
+  requestedYou: boolean
+  isPrivate: boolean
+  /** False for a private account you do not follow: show the lock instead of videos. */
+  canViewContent: boolean
 }

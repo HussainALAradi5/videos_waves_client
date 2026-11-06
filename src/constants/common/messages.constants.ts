@@ -1,5 +1,6 @@
 export const MESSAGES = {
   COMMON: {
+    INVALID_PAGE: 'That page does not exist, so we brought you home.',
     UNEXPECTED_ERROR: 'Something went wrong. Please try again.',
     NETWORK_ERROR: 'Cannot reach the server. Check your connection and try again.',
     RETRY: 'Try again',

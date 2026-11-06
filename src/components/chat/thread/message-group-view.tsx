@@ -10,7 +10,7 @@ const positionOf = (index: number, total: number) =>
   total === 1 ? 'single' : index === 0 ? 'first' : index === total - 1 ? 'last' : 'middle'
 
 /** A run of bubbles from one sender; in groups, their name above and avatar beside the last bubble. */
-export function MessageGroupView({ group, showSender, onReply }: MessageGroupViewProps) {
+export function MessageGroupView({ group, showSender, members, onReply }: MessageGroupViewProps) {
   const first = group.messages[0]
   return (
     <Stack gap="1">
@@ -27,7 +27,7 @@ export function MessageGroupView({ group, showSender, onReply }: MessageGroupVie
               </Text>
             )}
             {group.messages.map((message, index) => (
-              <MessageBubble key={message.id} message={message} isMine={group.isMine} position={positionOf(index, group.messages.length)} onReply={onReply} />
+              <MessageBubble key={message.id} message={message} isMine={group.isMine} position={positionOf(index, group.messages.length)} members={members} onReply={onReply} />
             ))}
           </Stack>
         </HStack>

@@ -2,5 +2,6 @@
 export enum SettingControl {
   SWITCH = 'switch',
   SELECT = 'select',
-  SWATCHES = 'swatches'
+  SWATCHES = 'swatches',
+  TEXT = 'text'
 }

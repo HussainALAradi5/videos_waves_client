@@ -11,9 +11,10 @@ export const MUTE_OPTIONS: DropdownOption[] = [
 /** Text of the chat options shared by inbox rows, the chat header, and chat info. */
 export const CHAT_OPTIONS_MESSAGES = {
   MENU: 'Chat options',
-  MUTE_8H: 'Mute for 8 hours',
-  MUTE_1W: 'Mute for 1 week',
-  MUTE_ALWAYS: 'Mute until I unmute',
+  MUTE: 'Mute',
+  FOR_8H: 'For 8 hours',
+  FOR_1W: 'For 1 week',
+  UNTIL_UNMUTE: 'Until I unmute',
   UNMUTE: 'Unmute',
   MUTED: 'Muted. No sound or unread badge from this chat.',
   UNMUTED: 'Chat unmuted.',
@@ -24,5 +25,6 @@ export const CHAT_OPTIONS_MESSAGES = {
   DELETED: 'Chat deleted from your list.',
   LEAVE_TITLE: (title: string) => `Leave "${title}"?`,
   LEAVE_BODY: 'You stop getting its messages and cannot write in it. You can still read what was sent before you left.',
-  LEFT: (title: string) => `You left "${title}".`
+  LEFT: (title: string) => `You left "${title}".`,
+  BLOCKED: (name: string) => `You blocked ${name}.`
 } as const

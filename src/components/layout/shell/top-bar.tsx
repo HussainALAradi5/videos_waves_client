@@ -3,9 +3,10 @@
 import { HStack } from '@chakra-ui/react'
 import { SHELL } from '@/constants/common/navigation.constants'
 import { BrandLogo } from './brand-logo'
+import { NotificationBell } from './notification-bell'
 import { ShellAccount } from './shell-account'
 
-/** Phone header: the logo, theme, and account actions. */
+/** Phone header: the logo, the notification bell, theme, and account actions. */
 export function TopBar() {
   return (
     <HStack
@@ -23,7 +24,10 @@ export function TopBar() {
       zIndex="sticky"
     >
       <BrandLogo isCompact />
-      <ShellAccount isInline />
+      <HStack gap="1">
+        <NotificationBell />
+        <ShellAccount isInline />
+      </HStack>
     </HStack>
   )
 }

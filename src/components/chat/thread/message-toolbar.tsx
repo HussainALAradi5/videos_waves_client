@@ -10,12 +10,12 @@ import { GenericIconButton } from '@/components/common/buttons/generic-icon-butt
 import { ActionMenu } from '@/components/common/dropdown/action-menu'
 import { ReactionPicker } from './reaction-picker'
 
-/** React, reply, and a menu (copy, edit within 15 minutes, unsend, delete for you); shown on hover or focus. */
-export function MessageToolbar({ message, isMine, actions, onReply, onEdit }: MessageToolbarProps) {
+/** React, reply, and a menu (copy, edit within 15 minutes, unsend until seen, delete for you); shown on hover or focus. */
+export function MessageToolbar({ message, isMine, isSeen, actions, isPickerOpen, onPickerOpenChange, onReply, onEdit }: MessageToolbarProps) {
   const canEdit = isMine && message.kind === MessageKind.TEXT && Boolean(message.body) && isWithinEditWindow(message.createdAt)
   return (
-    <HStack gap="0" opacity={{ base: 1, md: 0 }} _groupHover={{ opacity: 1 }} _focusWithin={{ opacity: 1 }} transition="opacity 0.15s">
-      <ReactionPicker myReaction={message.myReaction} onReact={actions.react} />
+    <HStack gap="0" opacity={{ base: 1, md: isPickerOpen ? 1 : 0 }} _groupHover={{ opacity: 1 }} _focusWithin={{ opacity: 1 }} transition="opacity 0.15s">
+      <ReactionPicker myReaction={message.myReaction} onReact={actions.react} isOpen={isPickerOpen} onOpenChange={onPickerOpenChange} />
       <GenericIconButton label={CHAT_MESSAGES.REPLY} size="xs" onClick={onReply}>
         <LuReply />
       </GenericIconButton>
@@ -25,7 +25,7 @@ export function MessageToolbar({ message, isMine, actions, onReply, onEdit }: Me
         items={[
           { key: 'copy', label: CHAT_MESSAGES.COPY, icon: <LuCopy />, onSelect: actions.copy, isHidden: !message.body },
           { key: 'edit', label: CHAT_MESSAGES.EDIT, icon: <LuPencil />, onSelect: onEdit, isHidden: !canEdit },
-          { key: 'unsend', label: CHAT_MESSAGES.UNSEND, icon: <LuUndo2 />, onSelect: () => void actions.unsend(), isHidden: !isMine, isDanger: true },
+          { key: 'unsend', label: CHAT_MESSAGES.UNSEND, icon: <LuUndo2 />, onSelect: () => void actions.unsend(), isHidden: !isMine || isSeen, isDanger: true },
           { key: 'delete', label: CHAT_MESSAGES.DELETE_FOR_ME, icon: <LuTrash2 />, onSelect: () => void actions.deleteForMe(), isDanger: true }
         ]}
       />

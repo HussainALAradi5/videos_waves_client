@@ -1,6 +1,7 @@
 /** Strings for the redesigned video screens (older ones stay in MESSAGES.VIDEOS). */
 export const VIDEO_MESSAGES = {
   FOR_YOU: 'For you',
+  DISCOVER: 'Discover',
   FOLLOWING: 'Following',
   FOLLOWING_EMPTY_TITLE: 'Nothing here yet',
   FOLLOWING_EMPTY_DESCRIPTION: 'Follow people to see their newest videos here.',

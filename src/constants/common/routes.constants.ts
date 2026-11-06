@@ -8,6 +8,7 @@ export const PAGE_ROUTES = {
   UPLOAD: '/upload',
   MESSAGES: '/messages',
   SETTINGS: '/settings',
+  NOTIFICATIONS: '/notifications',
   ADMIN_REQUESTS: '/admin/requests',
   ADMIN_USERS: '/admin/users',
   video: (videoId: string) => `/videos/${segment(videoId)}`,

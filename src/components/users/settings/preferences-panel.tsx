@@ -2,6 +2,7 @@
 
 import { Stack, StackSeparator } from '@chakra-ui/react'
 import { SETTING_SECTIONS } from '@/constants/users/settings/setting-sections.constants'
+import { BubblePreview } from './bubble-preview'
 import { SettingRow } from './setting-row'
 import { SettingsCard } from './settings-card'
 
@@ -16,6 +17,7 @@ export function PreferencesPanel() {
               <SettingRow key={row.key} config={row} />
             ))}
           </Stack>
+          {section.preview === 'bubbles' && <BubblePreview />}
         </SettingsCard>
       ))}
     </Stack>

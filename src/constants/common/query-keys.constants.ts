@@ -1,6 +1,7 @@
 import type { VideoQueryDto } from '@/dtos/videos/video/video-query.dto'
 import type { AdminRequestQueryDto } from '@/dtos/users/admin-request/admin-request-query.dto'
 import type { AdminUsersQueryDto } from '@/dtos/users/admin-users/admin-users-query.dto'
+import type { NotificationFilter } from '@/enums/notifications/notification-filter.enum'
 import type { InboxFolder } from '@/enums/chat/conversation/inbox-folder.enum'
 
 export const QUERY_KEYS = {
@@ -29,6 +30,10 @@ export const QUERY_KEYS = {
   messages: (conversationId: string) => ['chat', 'messages', conversationId] as const,
   typing: (conversationId: string) => ['chat', 'typing', conversationId] as const,
   unread: ['chat', 'unread'] as const,
+  notifications: ['notifications'] as const,
+  notificationList: (filter: NotificationFilter) => ['notifications', 'list', filter] as const,
+  notificationUnread: ['notifications', 'unread'] as const,
+  followRequests: ['people', 'follow-requests'] as const,
   adminRequests: ['admin-requests'] as const,
   adminRequestPage: (query: AdminRequestQueryDto) => ['admin-requests', query] as const
 }
