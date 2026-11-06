@@ -17,7 +17,7 @@ import { AppLink } from '@/components/common/navigation/app-link'
 import { CommentComposer } from './comment-composer'
 import { CommentItem } from './comment-item'
 
-export function CommentSection({ videoId, videoOwnerId }: CommentSectionProps) {
+export function CommentSection({ videoId, videoOwnerId, commentsCount }: CommentSectionProps) {
   const { isAuthenticated } = useAuth()
   const comments = useComments(videoId)
   const composer = useCommentComposer(videoId)
@@ -25,7 +25,7 @@ export function CommentSection({ videoId, videoOwnerId }: CommentSectionProps) {
   return (
     <Stack as="section" gap="5" aria-labelledby="comments-heading">
       <Heading id="comments-heading" as="h2" size="md">
-        {MESSAGES.COMMENTS.TITLE} · {comments.totalItems}
+        {MESSAGES.COMMENTS.TITLE} · {commentsCount}
       </Heading>
       {isAuthenticated ? (
         <CommentComposer

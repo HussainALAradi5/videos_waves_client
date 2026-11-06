@@ -6,4 +6,6 @@ export interface MyMembership {
   status: MemberStatus
   unreadCount: number
   isMuted: boolean
+  /** When the mute ends; far in the future means until unmuted. */
+  mutedUntil: string | null
 }

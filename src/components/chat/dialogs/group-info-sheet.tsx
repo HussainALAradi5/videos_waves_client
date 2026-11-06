@@ -1,11 +1,16 @@
 'use client'
 
-import { HStack, Stack, Switch, Text } from '@chakra-ui/react'
+import { HStack, Stack, Text } from '@chakra-ui/react'
+import { MUTE_OPTIONS } from '@/constants/chat/chat-options.constants'
+import type { MuteDuration } from '@/enums/chat/conversation/mute-duration.enum'
+import { useChatOptions } from '@/hooks/chat/conversation/use-chat-options'
+import { muteSelection, muteStatusLabel } from '@/utilities/chat/mute.utility'
+import { SelectDropdown } from '@/components/common/dropdown/select-dropdown'
+import { ChatOptionsConfirm } from '../options/chat-options-confirm'
 import { CHAT_MESSAGES } from '@/constants/chat/chat-messages.constants'
 import { MemberRole } from '@/enums/chat/conversation/member-role.enum'
 import { ConversationType } from '@/enums/chat/conversation/conversation-type.enum'
 import type { GroupInfoSheetProps } from '@/interfaces/components/chat/dialogs/group-info-sheet-props.interface'
-import { useAuth } from '@/hooks/users/auth/use-auth'
 import { useConversationActions } from '@/hooks/chat/conversation/use-conversation-actions'
 import { usePeoplePicker } from '@/hooks/chat/conversation/use-people-picker'
 import { GenericButton } from '@/components/common/buttons/generic-button'
@@ -13,10 +18,10 @@ import { BottomSheet } from '@/components/common/dialogs/bottom-sheet'
 import { PeoplePicker } from './people-picker'
 import { MemberRow } from './member-row'
 
-/** Chat details: mute, members (with admin controls), add people, and leave or delete. */
+/** Chat details: mute for a while or until unmuted, members (with admin controls), add people, leave, and delete. */
 export function GroupInfoSheet({ conversation, isOpen, onClose }: GroupInfoSheetProps) {
-  const { user } = useAuth()
   const actions = useConversationActions(conversation.id)
+  const options = useChatOptions(conversation)
   const picker = usePeoplePicker()
   const isGroup = conversation.type === ConversationType.GROUP
   const isAdmin = conversation.me.role === MemberRole.ADMIN
@@ -28,12 +33,18 @@ export function GroupInfoSheet({ conversation, isOpen, onClose }: GroupInfoSheet
   return (
     <BottomSheet isOpen={isOpen} onClose={onClose} title={CHAT_MESSAGES.CHAT_INFO}>
       <Stack gap="6">
-        <HStack justify="space-between">
-          <Text fontWeight="semibold">{CHAT_MESSAGES.MUTE}</Text>
-          <Switch.Root checked={conversation.me.isMuted} onCheckedChange={(details) => void actions.setMuted(details.checked)} colorPalette="brand">
-            <Switch.HiddenInput aria-label={CHAT_MESSAGES.MUTE} />
-            <Switch.Control />
-          </Switch.Root>
+        <HStack justify="space-between" gap="4">
+          <Stack gap="0">
+            <Text fontWeight="semibold">{CHAT_MESSAGES.MUTE}</Text>
+            {muteStatusLabel(conversation.me) && <Text fontSize="sm" color="fg.muted">{muteStatusLabel(conversation.me)}</Text>}
+          </Stack>
+          <SelectDropdown
+            options={MUTE_OPTIONS}
+            value={muteSelection(conversation.me)}
+            placeholder={muteStatusLabel(conversation.me) ?? undefined}
+            onChange={(value) => void options.mute(value as MuteDuration)}
+            width="44"
+          />
         </HStack>
         {isGroup && (
           <Stack gap="2">
@@ -51,9 +62,17 @@ export function GroupInfoSheet({ conversation, isOpen, onClose }: GroupInfoSheet
             </GenericButton>
           </Stack>
         )}
-        <GenericButton tone="dangerGhost" onClick={isGroup && user ? () => actions.leave(user.id) : actions.hide}>
-          {isGroup ? CHAT_MESSAGES.LEAVE : CHAT_MESSAGES.DELETE_CHAT}
-        </GenericButton>
+        <Stack gap="1">
+          {isGroup && (
+            <GenericButton tone="dangerGhost" onClick={options.requestLeave}>
+              {CHAT_MESSAGES.LEAVE}
+            </GenericButton>
+          )}
+          <GenericButton tone="dangerGhost" onClick={options.requestDelete}>
+            {CHAT_MESSAGES.DELETE_CHAT}
+          </GenericButton>
+        </Stack>
+        <ChatOptionsConfirm options={options} />
       </Stack>
     </BottomSheet>
   )

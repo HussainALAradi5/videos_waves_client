@@ -51,7 +51,7 @@ export const CHAT_MESSAGES = {
   REMOVE: 'Remove from group',
   ADMIN: 'Admin',
   PEOPLE: 'People',
-  PEOPLE_PLACEHOLDER: 'Their email or phone number',
+  PEOPLE_PLACEHOLDER: 'Username, email, or phone',
   NO_PEOPLE_FOUND: 'No one found',
   CREATE: 'Create group',
   START: 'Chat',
