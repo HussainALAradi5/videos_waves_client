@@ -37,7 +37,7 @@ export const MESSAGES = {
   AUTH: {
     ALREADY_SIGNED_IN: 'You are already signed in. Sign out first to use another account or create a new one.',
     LOGIN_TITLE: 'Welcome back',
-    LOGIN_DESCRIPTION: 'Sign in with your username or email.',
+    LOGIN_DESCRIPTION: 'Sign in with your username, email, or mobile number.',
     REGISTER_TITLE: 'Join Videos Waves',
     REGISTER_DESCRIPTION: 'Create an account to upload, like, and comment.',
     LOGIN_SUBMIT: 'Sign in',
