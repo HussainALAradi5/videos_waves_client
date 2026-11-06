@@ -27,7 +27,7 @@ export function GenericButton(props: GenericButtonProps) {
         loadingText={loadingText}
         disabled={disabled || isBusy}
         aria-busy={isBusy}
-        onClick={onClick ? () => void run() : undefined}
+        onClick={onClick ? (event) => void run(event) : undefined}
         rounded="full"
         {...rest}
       >

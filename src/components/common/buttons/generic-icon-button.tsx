@@ -20,7 +20,7 @@ export function GenericIconButton({ label, tone = 'ghost', onClick, isLoading = 
           colorPalette={style.colorPalette}
           loading={isBusy}
           disabled={disabled || isBusy}
-          onClick={onClick ? () => void run() : undefined}
+          onClick={onClick ? (event) => void run(event) : undefined}
           rounded="full"
           {...rest}
         >

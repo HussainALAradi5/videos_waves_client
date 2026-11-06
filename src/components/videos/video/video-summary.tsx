@@ -9,7 +9,7 @@ import { useAuth } from '@/hooks/users/auth/use-auth'
 import { formatCount } from '@/utilities/format/count-format.utility'
 import { formatRelativeDate } from '@/utilities/format/date-format.utility'
 import { UserAvatar } from '@/components/common/avatars/user-avatar'
-import { FollowButton } from '@/components/users/social/follow-button'
+import { VideoOwnerFollow } from './video-owner-follow'
 import { LikeButton } from './like-button'
 import { VideoActions } from './video-actions'
 
@@ -28,7 +28,7 @@ export function VideoSummary({ video, canManage, onToggleLike }: VideoSummaryPro
           <Text asChild fontWeight="semibold">
             <NextLink href={PAGE_ROUTES.profile(video.owner.userName)}>{video.owner.userName}</NextLink>
           </Text>
-          {!isMine && user && <FollowButton userName={video.owner.userName} isFollowing={false} size="xs" />}
+          {!isMine && user && <VideoOwnerFollow userName={video.owner.userName} />}
         </HStack>
         <HStack gap="2">
           <LikeButton isLiked={video.isLiked} likesCount={video.likesCount} onToggle={onToggleLike} />
