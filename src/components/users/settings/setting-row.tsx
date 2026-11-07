@@ -6,6 +6,9 @@ import type { SettingRowProps } from '@/interfaces/components/users/settings/set
 import { useSettings } from '@/hooks/users/settings/use-settings'
 import { useUpdateSetting } from '@/hooks/users/settings/use-update-setting'
 import { SelectDropdown } from '@/components/common/dropdown/select-dropdown'
+import { SettingKey } from '@/enums/users/settings/setting-key.enum'
+import type { BubbleStyle } from '@/enums/users/settings/bubble-style.enum'
+import { BubbleShapeIcon } from './bubble-shape-icon'
 import { BubbleSwatches } from './bubble-swatches'
 import { SettingTextInput } from './setting-text-input'
 
@@ -15,6 +18,10 @@ export function SettingRow({ config }: SettingRowProps) {
   const update = useUpdateSetting()
   const value = settings[config.key]
   const save = (next: unknown) => update.mutate({ [config.key]: next })
+  // The bubble shape choices each show a tiny picture of that shape.
+  const options = (config.options ?? []).map((option) =>
+    config.key === SettingKey.BUBBLE_STYLE ? { ...option, icon: <BubbleShapeIcon shape={option.value as BubbleStyle} /> } : option
+  )
 
   return (
     <Flex gap="4" py="4" justify="space-between" align={{ base: 'flex-start', sm: 'center' }} direction={{ base: 'column', sm: 'row' }}>
@@ -31,7 +38,7 @@ export function SettingRow({ config }: SettingRowProps) {
         </Switch.Root>
       )}
       {config.control === SettingControl.SELECT && (
-        <SelectDropdown options={config.options ?? []} value={String(value)} onChange={save} width="56" />
+        <SelectDropdown options={options} value={String(value)} onChange={save} width="56" />
       )}
       {config.control === SettingControl.SWATCHES && <BubbleSwatches options={config.options ?? []} value={String(value)} onChange={save} />}
       {config.control === SettingControl.TEXT && (

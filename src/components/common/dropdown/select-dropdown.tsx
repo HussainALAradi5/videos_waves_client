@@ -27,7 +27,7 @@ export function SelectDropdown(props: SelectDropdownProps) {
       {label && <Select.Label>{label}</Select.Label>}
       <Select.Control>
         <Select.Trigger rounded="xl" bg="app.surface">
-          <Select.ValueText placeholder={placeholder}>{selected?.colorPalette && <DropdownOptionRow option={selected} />}</Select.ValueText>
+          <Select.ValueText placeholder={placeholder}>{(selected?.colorPalette || selected?.icon) && <DropdownOptionRow option={selected} />}</Select.ValueText>
         </Select.Trigger>
         <Select.IndicatorGroup>
           <Select.Indicator />
