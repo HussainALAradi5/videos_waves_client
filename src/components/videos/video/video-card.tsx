@@ -7,6 +7,7 @@ import { PAGE_ROUTES } from '@/constants/common/routes.constants'
 import { LAYOUT } from '@/constants/common/theme.constants'
 import type { VideoCardProps } from '@/interfaces/components/videos/video/video-card-props.interface'
 import { useHoverPreview } from '@/hooks/videos/video/use-hover-preview'
+import { VIDEO_PREVIEW } from '@/constants/videos/video/video-preview.constants'
 import { formatDuration } from '@/utilities/format/duration-format.utility'
 import { MotionBox } from '@/components/common/motion/motion-box'
 import { UserAvatar } from '@/components/common/avatars/user-avatar'
@@ -25,7 +26,7 @@ export function VideoCard({ video }: VideoCardProps) {
             <Box rounded="2xl" overflow="hidden" bg="black" shadow="card" position="relative">
               <video
                 ref={videoRef}
-                src={video.videoUrl}
+                src={video.thumbnailUrl ? video.videoUrl : `${video.videoUrl}#t=${VIDEO_PREVIEW.FRAME_SECONDS}`}
                 poster={video.thumbnailUrl ?? undefined}
                 muted
                 loop
